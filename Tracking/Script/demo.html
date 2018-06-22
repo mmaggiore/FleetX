@@ -1,0 +1,125 @@
+<html>
+<head>
+<title>Softricks Popup date picker Demo Page</title>
+<SCRIPT  LANGUAGE="JavaScript" SRC="Calendar1-902.js"></SCRIPT>
+<!-- A Separate Layer for the Calendar -->
+<!-- Make sure to use the name Calendar for this layer -->
+<SCRIPT Language="Javascript" TYPE="text/javascript">
+Calendar.CreateCalendarLayer(10, 275, "");
+
+// Month names in YOUR Language (French/Spanish..)
+Calendar.Months = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
+	"Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
+// Short Month names in YOUR Language
+Calendar.SMonths = ["Jan", "Fév", "Mar", "Avr", "Mai", "Jui", "Juill", "Aoû",
+	"Sep", "Oct", "Nov", "Déc"];
+// Weekdays in YOUR Language (French/Spanish..)
+Calendar.DOW = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+</SCRIPT>
+<SCRIPT Language="Javascript">
+function TryCallFunction() {
+	var sd = document.MForm.mydate1.value.split("-");
+	document.MForm.iday.value = sd[1];
+	document.MForm.imonth.value = sd[0];
+	document.MForm.iyear.value = sd[2];
+}
+var styleVar = "td { font-family:Courier; font-size:12 }";
+</SCRIPT>
+<LINK REL="stylesheet" TYPE="text/css" HREF="Calendar.css">
+<link href="../../styles/default.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<h2 class="titleText"><!-- #BeginLibraryItem "/Library/Title Logo.lbi" -->
+  <div id="Logo"><img src="../../images/Logo.gif" width="260" height="70"></div>
+<!-- #EndLibraryItem --><!-- #BeginLibraryItem "/Library/Nav Menu.lbi" -->
+<div id="submenu"><a href="/index.html">Home</a> | <a href="/feedback.html"></a><a href="/about.html" title="About Softricks">About</a> | <a href="/search.html">Search</a> | <a href="/feedback.html">Contact Us</a> </div>
+<!-- #EndLibraryItem --></h2>
+
+<div id="Content">
+  <h2 class="titleText">Softricks Popup Date Picker Demo Page</h2>
+  <form name="MForm">
+    <p>Control String:
+        <TEXTAREA name=txt_custom COLS=30 ROWS=5 wrap="VIRTUAL">AppendOrReplace=Replace;AppendChar=';';CloseOnSelect=Yes;ReturnData=Date;Title=Calendar;InlineX=400;InlineY=200;SelectAfter=Today-360;SelectBefore=Today+360;AllowWeekends=No;Resizable=Yes;CallFunction=TryCallFunction;PopupX=300;PopupY=300;Nav=Yes;SmartNav=Yes;ShowFix=Yes;Fix=Yes;WeekStart=1;Weekends=06;ShortNames=No;Holidays=0901,1225,0101,0704,1008;AllowHolidays=Yes;Language=E;Stylesheet=Calendar.css;</textarea>
+        <BR>
+        <BR>
+    Date Format:
+    <select name="txt_format">
+      <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+      <option value="MM/DD/YY">MM/DD/YY</option>
+      <option value="MM-DD-YYYY">MM-DD-YYYY</option>
+      <option value="MM-DD-YY">MM-DD-YY</option>
+      <option value="DD/MON/YYYY">DD/MON/YYYY</option>
+      <option value="DD/MON/YY">DD/MON/YY</option>
+      <option SELECTED value="DD-MON-YYYY">DD-MON-YYYY</option>
+      <option value="DD-MON-YY">DD-MON-YY</option>
+      <option value="DD/MONTH/YYYY">DD/MONTH/YYYY</option>
+      <option value="DD/MONTH/YY">DD/MONTH/YY</option>
+      <option value="DD-MONTH-YYYY">DD-MONTH-YYYY</option>
+      <option value="DD-MONTH-YY">DD-MONTH-YY</option>
+      <option value="MONTH DD, YYYY">MONTH DD, YYYY</option>
+      <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+      <option value="DD/MM/YY">DD/MM/YY</option>
+      <option value="DOW, DD-MON-YY">DOW, DD-MON-YY</option>
+      <OPTION value="YYYY-MM-DD">YYYY-MM-DD</OPTION>
+    </select>
+    Month:
+    <select name="txt_month">
+      <option value="0">January</option>
+      <option value="1">February</option>
+      <option value="2">March</option>
+      <option value="3">April</option>
+      <option value="4">May</option>
+      <option value="5">June</option>
+      <option value="6">July</option>
+      <option value="7">August</option>
+      <option value="8">September</option>
+      <option value="9">October</option>
+      <option value="10">November</option>
+      <option value="11">December</option>
+    </select>
+    Year:
+    <input type="text" name="txt_year" value="" size="5">
+    </p>
+    <hr>
+    <BR>
+    <span class="titleText">Selection #1:</span>
+    <input type="text" name="mydate1" value="">
+    <p>If you select a date format with '-' as a separator, such as MM-DD-YYYY, this example can split the returned date into Day, Month and Year. This is achieved by a Javascript stub written in this page which gets called when a date is selected from the calendar. You can specify your stub by using the 'CallFunction' setting in the 6th parameter to the 'show_calendar' function. <BR>
+        <input type="text" name="iday" value="Month">
+        <input type="text" name="imonth" value="Day">
+        <input type="text" name="iyear" value="Year">
+    </p>
+    <p><span class="titleText">Selection #2:</span>
+        <input type="text" name="mydate2" value="">
+    </p>
+    <p>
+      <input name="Reset" type="Reset" value="Reset">
+      <input type="button" value="Yearly Calendar" name="ypick" onClick="show_yearly_calendar('MForm.mydate1', MForm.txt_year.value, MForm.txt_format.options[txt_format.selectedIndex].value)">
+      <input type="button" value="Inline Calendar" name="mpick1" onClick="show_calendar('MForm.mydate1', MForm.txt_month.options[txt_month.selectedIndex].value, MForm.txt_year.value, MForm.txt_format.options[txt_format.selectedIndex].value, 'INLINE', MForm.txt_custom.value)" onmouseover="this.style.cursor='hand';">
+      <input type="button" value="Popup Calendar" name="mpick3" onClick="show_calendar('MForm.mydate1', MForm.txt_month.options[txt_month.selectedIndex].value, MForm.txt_year.value, MForm.txt_format.options[txt_format.selectedIndex].value, null, MForm.txt_custom.value)">
+    </p>
+    <hr>
+  Demo of how to select a 'From date' and a 'To date'. <br>
+  <br>
+  <span class="boldText">Note:</span> The calendars invoked by the 2 links below use different date formats: the first one uses 'MM/DD/YYYY' and the second one uses 'YYYY-MM-DD' as the default date format. <br>
+  <br>
+  The first link uses the 'Selection #1' date field as the initial date when it opens. The second link uses an arbitrary date constant '2002-04-22' as the initial date. This is to demonstrate the 'CurrentDate' setting in the 6th parameter of 'show_calendar' function.<br>
+  <BR>
+  <a href="javascript:void(0);" onClick="show_calendar('MForm.mydate1',null,'','MM/DD/YYYY','','Title=FROM Date;CurrentDate=<MForm.mydate1>;Fix=Yes;')">From</A> --- <a href="javascript:void(0);" onClick="show_calendar('MForm.mydate2',null,'','YYYY-MM-DD','','Title=TO Date;CurrentDate=2002-04-22;Fix=No')">To</A> <BR>
+  <hr>
+  <BR>
+    <input type="text" name="mydate" value="08/09/1985">
+    <BR>
+    <BR>
+    <input type="button" value="Default Calendar" name="mpick3" onClick="show_calendar('MForm.mydate')">
+    <hr>
+    <p>Check our <a href="tutorial.html">Tutorial</a> on more details on usage. <br>
+    </p>
+  </form>
+</div>
+<!-- #BeginLibraryItem "/Library/Copyright.lbi" -->
+<div id="Copyright">Copyright &copy;Softricks.com 2000-2005, All rights reserved. </div>
+<!-- #EndLibraryItem -->
+</body>
+</html>

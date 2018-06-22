@@ -1,0 +1,1720 @@
+/* Style Sheet for Penchant */
+
+
+/* Classes are defined here */
+
+
+body 
+{ 
+    background-color: white; 
+    margin-top: 0.0em;
+    margin-bottom: 0.0em;
+    margin-left: 0.0em;
+    margin-right: 0.0em;
+    }
+    
+ .image_off, #home:hover .image_on{
+   display:none
+}
+.image_on, #home:hover .image_off{
+   display:block
+}   
+  
+input#gobutton{
+cursor:pointer; /*forces the cursor to change to a hand when the button is hovered*/
+padding:5px 25px; /*add some padding to the inside of the button*/
+background:#d71e26; /*the colour of the button*/
+border:1px solid #808080; /*required or the default border for the browser will appear*/
+/*give the button curved corners, alter the size as required*/
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
+border-radius: 10px;
+/*give the button a drop shadow*/
+-webkit-box-shadow: 0 0 4px rgba(0,0,0, .75);
+-moz-box-shadow: 0 0 4px rgba(0,0,0, .75);
+box-shadow: 0 0 4px rgba(0,0,0, .75);
+/*style the text*/
+color:#f3f3f3;
+font-size:1.1em;
+text-transform: uppercase;
+}
+/***NOW STYLE THE BUTTON'S HOVER AND FOCUS STATES***/
+input#gobutton:hover, input#gobutton:focus{
+background-color :#808080; /*make the background a little darker*/
+/*reduce the drop shadow size to give a pushed button effect*/
+-webkit-box-shadow: 0 0 1px rgba(0,0,0, .75);
+-moz-box-shadow: 0 0 1px rgba(0,0,0, .75);
+box-shadow: 0 0 1px rgba(0,0,0, .75);
+text-transform: uppercase;
+}  
+
+input#gobutton2{
+cursor:pointer; /*forces the cursor to change to a hand when the button is hovered*/
+padding:5px 5px; /*add some padding to the inside of the button*/
+background:#d71e26; /*the colour of the button*/
+border:1px solid #808080; /*required or the default border for the browser will appear*/
+/*give the button curved corners, alter the size as required*/
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
+border-radius: 10px;
+/*give the button a drop shadow*/
+-webkit-box-shadow: 0 0 4px rgba(0,0,0, .75);
+-moz-box-shadow: 0 0 4px rgba(0,0,0, .75);
+box-shadow: 0 0 4px rgba(0,0,0, .75);
+/*style the text*/
+color:#f3f3f3;
+font-size:1.1em;
+text-transform: uppercase;
+}
+/***NOW STYLE THE BUTTON'S HOVER AND FOCUS STATES***/
+input#gobutton:hover, input#gobutton:focus{
+background-color :#808080; /*make the background a little darker*/
+/*reduce the drop shadow size to give a pushed button effect*/
+-webkit-box-shadow: 0 0 1px rgba(0,0,0, .75);
+-moz-box-shadow: 0 0 1px rgba(0,0,0, .75);
+box-shadow: 0 0 1px rgba(0,0,0, .75);
+text-transform: uppercase;
+} 
+
+  
+  
+    
+ #submitbutton 
+ {
+  width: 100px;
+  height: 30px;     
+    background-color: #d71e26;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  /*border: 5px solid gray;*/
+  padding: 5px;
+  text-transform: uppercase;
+} 
+
+#submitbutton:hover {opacity: 0.6; }  
+
+.submitbuttontext p {
+  position: relative;
+  top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+
+  TABLE.VEHICLEMONITOR
+  { 
+     font-family:arial;
+     /*font-size:200px;*/
+     background-color:white;
+     /*width:500px;*/
+     border-style:solid;
+     border-color:#41924B;
+     border-width:2px;
+  }
+  
+.MainPageText
+{
+color: black; 
+font-family: Arial;
+font-size: 12pt; 
+font-weight: normal; 
+text-decoration: none;
+text-transform: uppercase;
+} 
+.MainPageTextCenter
+{
+color: black; 
+font-family: Arial;
+font-size: 12pt; 
+font-weight: normal; 
+text-decoration: none;
+text-transform: uppercase;
+text-align: center;
+} 
+.MainPageTextBold
+{
+color: black; 
+font-family: Arial;
+font-size: 12pt; 
+font-weight: bold; 
+text-decoration: none;
+text-transform: uppercase;
+}   
+.MainPageTextBoldRight
+{
+color: black; 
+font-family: Arial;
+font-size: 12pt; 
+font-weight: bold; 
+text-decoration: none;
+text-transform: uppercase;
+text-align: right;
+}  
+.PhonePageTextBoldRight
+{
+color: black; 
+font-family: Arial;
+font-size: 10pt; 
+font-weight: bold; 
+text-decoration: none;
+text-transform: uppercase;
+text-align: right;
+}  
+  
+.FleetXRedSection
+{
+color: white; 
+font-family: Arial;
+font-size: 14pt; 
+font-weight: bold; 
+text-decoration: none;
+background-color: #d71e26; 
+} 
+.FleetXRedSectionSmall
+{
+color: white; 
+font-family: Helvetica;
+font-size: 8pt; 
+font-weight: normal; 
+text-decoration: none;
+background-color: #d71e26; 
+} 
+
+.FleetXRedSectionLM
+{
+color: white; 
+font-family: Helvetica;
+font-size: 10pt; 
+font-weight: bold; 
+text-decoration: none;
+background-color: #d71e26; 
+} 
+
+.FleetXRedSectionSmallWaybill
+{
+color: white; 
+font-family: Helvetica;
+font-size: 14pt; 
+font-weight: normal; 
+text-decoration: none;
+background-color: #d71e26; 
+} 
+
+.FleetXRedSectionPalletized
+{
+color: white; 
+font-family: Arial;
+font-size: 38pt; 
+font-weight: bold;
+text-align:center; 
+text-decoration: none;
+background-color: #d71e26; 
+} 
+.FleetXRedSectionPalletizedReversed
+{
+color: #d71e26; 
+font-family: Arial;
+font-size: 38pt; 
+font-weight: bold;
+text-align:center; 
+text-decoration: none;
+background-color: white; 
+} 
+
+.FleetXGreySection
+{
+color: white; 
+font-family: Arial;
+font-size: 10pt; 
+font-weight: bold; 
+text-decoration: none;
+background-color: #808080; 
+} 
+
+A.GreyNavLinks:link {
+	COLOR: gray;
+	text-decoration:none;
+	FONT-SIZE: 24px;
+	font: Arial;
+	}
+A.GreyNavLinks:visited {
+	COLOR: gray;
+	text-decoration:none;
+	FONT-SIZE: 24px;
+	font: Arial;
+	}
+A.GreyNavLinks:hover {
+	COLOR: black;
+	background-color: Gray;
+	text-decoration:none;
+	FONT-SIZE: 24px;
+	font: Arial;
+	}
+A.GreyNavLinks:active {
+	COLOR: gray;
+	FONT-SIZE: 24px;
+	text-decoration:none;
+	font: Arial;
+	}	
+
+
+A.FleetXRedMain:link {
+		COLOR: #d71e26;
+		text-decoration:none;
+		FONT-SIZE: 12pt;
+		font: Arial;
+		}
+A.FleetXRedMain:visited {
+		COLOR: #d71e26;
+	text-decoration:none;
+	FONT-SIZE: 12pt;
+	font: Arial;
+		}
+A.FleetXRedMain:hover {
+		COLOR: black;
+	text-decoration:none;
+	FONT-SIZE: 12pt;
+	font: Arial;
+		}
+A.FleetXRedMain:active {
+		COLOR: #d71e26;
+		FONT-SIZE: 12pt;
+	text-decoration:none;
+	font: Arial;}	
+
+
+ 
+A.FleetXRed:link {
+		COLOR: #d71e26;
+		text-decoration:none;
+		FONT-SIZE: 12px;
+		font: Arial;
+		}
+A.FleetXRed:visited {
+		COLOR: #d71e26;
+	text-decoration:none;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.FleetXRed:hover {
+		COLOR: black;
+	text-decoration:none;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.FleetXRed:active {
+		COLOR: #d71e26;
+		FONT-SIZE: 12px;
+	text-decoration:none;
+	font: Arial;}		
+
+A.FleetXWhiteSmall:link {
+		COLOR: white;
+		text-decoration:none;
+		FONT-SIZE: 12px;
+		font: Arial;
+		}
+A.FleetXWhiteSmall:visited {
+		COLOR: white;
+	text-decoration:none;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.FleetXWhiteSmall:hover {
+		COLOR: #d71e26;
+	text-decoration:none;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.FleetXWhiteSmall:active {
+		COLOR: white;
+		FONT-SIZE: 12px;
+	text-decoration:none;
+	font: Arial;}	
+
+
+
+A.greenlink:link {
+		COLOR: #41924B;
+		text-decoration:bold;
+		FONT-SIZE: 16px;
+		font: Arial;
+		}
+A.greenlink:visited {
+		COLOR: #41924B;
+	text-decoration:bold;
+	FONT-SIZE: 16px;
+	font: Arial;
+		}
+A.greenlink:hover {
+		COLOR: #41924B;
+	text-decoration:bold;
+	FONT-SIZE: 16px;
+	font: Arial;
+		}
+A.greenlink:active {
+		COLOR: #41924B;
+		FONT-SIZE: 16px;
+	text-decoration:bold;
+	font: Arial;}
+
+
+
+A.FleetLiveMonitorRed:link {
+		COLOR: #cc1126;
+		text-decoration:none;
+    font-weight: bold;
+		FONT-SIZE: 16px;
+		font: Arial;
+		}
+A.FleetLiveMonitorRed:visited {
+		COLOR: #cc1126;
+		text-decoration:none;
+    font-weight: bold;
+	FONT-SIZE: 16px;
+	font: Arial;
+		}
+A.FleetLiveMonitorRed:hover {
+		COLOR: black;
+		text-decoration:none;
+    font-weight: bold;
+	FONT-SIZE: 16px;
+	font: Arial;
+		}
+A.FleetLiveMonitorRed:active {
+		COLOR: #cc1126;
+		FONT-SIZE: 16px;
+		text-decoration:none;
+    font-weight: bold;
+	font: Arial;}
+	
+	
+	
+A.FleetLiveMonitorGreen:link {
+		COLOR: #41924B;
+		text-decoration:none;
+    font-weight: bold;
+		FONT-SIZE: 16px;
+		font: Arial;
+		}
+A.FleetLiveMonitorGreen:visited {
+		COLOR: #41924B;
+		text-decoration:none;
+    font-weight: bold;
+	FONT-SIZE: 16px;
+	font: Arial;
+		}
+A.FleetLiveMonitorGreen:hover {
+		COLOR: black;
+	text-decoration:none;
+    font-weight: bold;
+	FONT-SIZE: 16px;
+	font: Arial;
+		}
+A.FleetLiveMonitorGreen:active {
+		COLOR: #41924B;
+		FONT-SIZE: 16px;
+    font-weight: bold;
+	text-decoration:none;
+	font: Arial;}		
+	
+
+	
+A.FleetLiveMonitorOrange:link {
+		COLOR: orange;
+		text-decoration:none;
+    font-weight: bold;
+		FONT-SIZE: 16px;
+		font: Arial;
+		}
+A.FleetLiveMonitorOrange:visited {
+		COLOR: orange;
+		text-decoration:none;
+    font-weight: bold;
+	FONT-SIZE: 16px;
+	font: Arial;
+		}
+A.FleetLiveMonitorOrange:hover {
+		COLOR: black;
+	text-decoration:none;
+    font-weight: bold;
+	FONT-SIZE: 16px;
+	font: Arial;
+		}
+A.FleetLiveMonitorOrange:active {
+		COLOR: orange;
+		FONT-SIZE: 16px;
+    font-weight: bold;
+	text-decoration:none;
+	font: Arial;}		
+	
+	
+A.FleetLiveMonitorBlue:link {
+		COLOR: blue;
+		text-decoration:none;
+    font-weight: bold;
+		FONT-SIZE: 16px;
+		font: Arial;
+		}
+A.FleetLiveMonitorBlue:visited {
+		COLOR: blue;
+		text-decoration:none;
+    font-weight: bold;
+	FONT-SIZE: 16px;
+	font: Arial;
+		}
+A.FleetLiveMonitorBlue:hover {
+		COLOR: black;
+	text-decoration:none;
+    font-weight: bold;
+	FONT-SIZE: 16px;
+	font: Arial;
+		}
+A.FleetLiveMonitorBlue:active {
+		COLOR: blue;
+		FONT-SIZE: 16px;
+    font-weight: bold;
+	text-decoration:none;
+	font: Arial;}		
+	
+	
+	
+A.FleetLiveMonitorBlack:link {
+		COLOR: black;
+    font-weight: bold;
+	text-decoration:none;
+		FONT-SIZE: 16px;
+		font: Arial;
+		}
+A.FleetLiveMonitorBlack:visited {
+		COLOR: black;
+    font-weight: bold;
+	text-decoration:none;
+	FONT-SIZE: 16px;
+	font: Arial;
+		}
+A.FleetLiveMonitorBlack:hover {
+		COLOR: red;
+    font-weight: bold;
+	text-decoration:none;
+	FONT-SIZE: 16px;
+	font: Arial;
+		}
+A.FleetLiveMonitorBlack:active {
+		COLOR: black;
+		FONT-SIZE: 16px;
+    font-weight: bold;
+	text-decoration:none;
+	font: Arial;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+A.TIShuttleRed:link {
+		COLOR: #cc1126;
+		text-decoration:none;
+		FONT-SIZE: 12px;
+		font: Arial;
+		}
+A.TIShuttleRed:visited {
+		COLOR: #cc1126;
+	text-decoration:none;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.TIShuttleRed:hover {
+		COLOR: black;
+	text-decoration:none;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.TIShuttleRed:active {
+		COLOR: #cc1126;
+		FONT-SIZE: 12px;
+	text-decoration:none;
+	font: Arial;}
+	
+	
+	
+A.TIShuttleGreen:link {
+		COLOR: #41924B;
+		text-decoration:none;
+		FONT-SIZE: 12px;
+		font: Arial;
+		}
+A.TIShuttleGreen:visited {
+		COLOR: #41924B;
+	text-decoration:none;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.TIShuttleGreen:hover {
+		COLOR: black;
+	text-decoration:none;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.TIShuttleGreen:active {
+		COLOR: #41924B;
+		FONT-SIZE: 12px;
+	text-decoration:none;
+	font: Arial;}		
+	
+	
+	
+		
+	
+A.TIShuttleBlue:link {
+		COLOR: #229AE6;
+		text-decoration:none;
+		FONT-SIZE: 12px;
+		font: Arial;
+		}
+A.TIShuttleBlue:visited {
+		COLOR: #229AE6;
+	text-decoration:none;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.TIShuttleBlue:hover {
+		COLOR: black;
+	text-decoration:none;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.TIShuttleBlue:active {
+		COLOR: #229AE6;
+		FONT-SIZE: 12px;
+	text-decoration:none;
+	font: Arial;}	
+	
+A.TIShuttleGrey:link {
+		COLOR: #525151;
+		text-decoration:none;
+		FONT-SIZE: 12px;
+		font: Arial;
+		}
+A.TIShuttleGrey:visited {
+		COLOR: #525151;
+	text-decoration:none;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.TIShuttleGrey:hover {
+		COLOR: black;
+	text-decoration:none;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.TIShuttleGrey:active {
+		COLOR: #525151;
+		FONT-SIZE: 12px;
+	text-decoration:none;
+	font: Arial;}	
+	
+	
+A.TIShuttleBlack:link {
+		COLOR: black;
+		text-decoration:none;
+		FONT-SIZE: 12px;
+		font: Arial;
+		}
+A.TIShuttleBlack:visited {
+		COLOR: black;
+	text-decoration:none;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.TIShuttleBlack:hover {
+		COLOR: black;
+	text-decoration:none;
+	font-weight:bold;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.TIShuttleBlack:active {
+		COLOR: black;
+		FONT-SIZE: 12px;
+	text-decoration:none;
+	font: Arial;}
+
+
+a.SpecialEventLink:link
+{
+  font-family:Arial;
+  font-weight:normal;
+  font-size:8pt;
+  color:blue;
+  text-decoration:none;
+}
+a.SpecialEventLink:hover
+{
+  font-family:Arial;
+  font-weight:normal;
+  font-size:8pt;
+  color:black;
+  text-decoration:none;
+}
+a.SpecialEventLink:visited
+{
+  font-family:Arial;
+  font-weight:normal;
+  font-size:8pt;
+  text-decoration:none;
+  color:blue;
+}
+a.SpecialEventLink:visited:hover
+{
+  font-family:Arial;
+  font-weight:normal;
+  font-size:8pt;
+  color:black;
+  text-decoration:none;
+}
+
+.TIShuttleTextBlue{
+		COLOR: #229AE6;
+		text-decoration:none;
+		FONT-SIZE: 12px;
+		font: Arial;
+		}
+
+.selectedtab
+{
+color: #212E6E; 
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10pt; 
+font-weight: bold; 
+text-decoration: none; 
+}
+a.TabLinks:link
+{color: white;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 10pt; 
+font-weight: bold; 
+text-decoration: none;
+}
+a.TabLinks:hover
+{color: yellow;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 10pt; 
+font-weight: bold; 
+text-decoration: none;
+}
+a.TabLinks:active
+{color: white;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 10pt; 
+font-weight: bold; 
+text-decoration: none;
+}
+a.TabLinks:visited
+{color: white;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 10pt; 
+font-weight: bold; 
+text-decoration: none;
+}
+
+
+a.SelectedTabLinks:link
+{color: #212E6E;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 10pt; 
+font-weight: bold; 
+text-decoration: none;
+}
+a.SelectedTabLinks:hover
+{color: yellow;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 10pt; 
+font-weight: bold; 
+text-decoration: none;
+}
+a.SelectedTabLinks:active
+{color: #212E6E;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 10pt; 
+font-weight: bold; 
+text-decoration: none;
+}
+a.SelectedTabLinks:visited
+{color: #212E6E;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 10pt; 
+font-weight: bold; 
+text-decoration: none;
+}
+
+
+
+
+.topbackground{
+background-color:#212E6E;
+}
+
+
+/* This class is used for changing the background color of Pickup and dropoff listboxes */
+.toggleA{
+background-color:#EAEAEA;
+}
+
+/* This class is used for changing the background color of Pickup and dropoff listboxes */
+.toggleB{
+background-color:#F5F4F4;
+}
+
+/* This class is used for changing the width color of Pickup and dropoff listboxes */
+.drpdwn{
+width:250px;
+}
+
+.Barcode39
+{
+color: black; 
+font-family: IDAutomationHC39M;
+font-size: 14pt; 
+/*font-weight: bold;*/ 
+text-decoration: none; 
+}
+
+
+.TIShuttleHeaderWhite
+{
+color: white; 
+font-family: Arial;
+font-size: 14pt; 
+font-weight: bold; 
+text-decoration: none; 
+}
+.TIShuttleBodyWhite
+{
+color: white; 
+font-family: Arial;
+font-size: 10pt; 
+font-weight: normal; 
+text-decoration: none; 
+}
+.TIShuttleBodyWhiteBold
+{
+color: white; 
+font-family: Arial;
+font-size: 10pt; 
+font-weight: bold; 
+text-decoration: none; 
+}
+.TIShuttleTextBlack
+{
+color: black; 
+font-family: Arial;
+font-size: 10pt; 
+font-weight: normal; 
+text-decoration: none; 
+}
+.TIShuttleTextBlackBold
+{
+color: black; 
+font-family: Arial;
+font-size: 10pt; 
+font-weight: bold; 
+text-decoration: none; 
+}
+
+
+
+
+.FleetExpressHeaderWhite
+{
+color: white; 
+font-family: Arial;
+font-size: 14pt; 
+font-weight: bold; 
+text-decoration: none; 
+}
+.FleetExpressBodyWhite
+{
+color: white; 
+font-family: Arial;
+font-size: 10pt; 
+font-weight: normal; 
+text-decoration: none; 
+}
+.FleetExpressBodyWhiteBold
+{
+color: white; 
+font-family: Arial;
+font-size: 10pt; 
+font-weight: bold; 
+text-decoration: none; 
+}
+.FleetExpressTextBlack
+{
+color: black; 
+font-family: Arial;
+font-size: 10pt; 
+font-weight: normal; 
+text-decoration: none; 
+}
+
+.FleetExpressTextBlackBold
+{
+color: black; 
+font-family: Arial;
+font-size: 10pt; 
+font-weight: bold; 
+text-decoration: none; 
+}
+
+.FleetExpressTextBlackBoldLarge
+{
+color: black; 
+font-family: Arial;
+font-size: 20pt; 
+font-weight: bold; 
+text-decoration: none; 
+}
+
+.FleetExpressTextBlackSmaller
+{
+color: black; 
+font-family: Arial;
+font-size: 7pt; 
+font-weight: normal; 
+text-decoration: none; 
+}
+
+
+
+.RaytheonHeaderWhite
+{
+color: white; 
+font-family: Arial;
+font-size: 14pt; 
+font-weight: bold; 
+text-decoration: none; 
+}
+.RaytheonBodyWhite
+{
+color: white; 
+font-family: Arial;
+font-size: 10pt; 
+font-weight: normal; 
+text-decoration: none; 
+}
+.RaytheonBodyWhiteBold
+{
+color: white; 
+font-family: Arial;
+font-size: 10pt; 
+font-weight: bold; 
+text-decoration: none; 
+}
+.RaytheonTextBlack
+{
+color: black; 
+font-family: Arial;
+font-size: 10pt; 
+font-weight: normal; 
+text-decoration: none; 
+}
+.RaytheonTextBlackBold
+{
+color: black; 
+font-family: Arial;
+font-size: 10pt; 
+font-weight: bold; 
+text-decoration: none; 
+}
+.welcome
+{
+color: white; 
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 14pt; 
+font-weight: bold; 
+text-decoration: none; 
+}
+
+.mandatoryhyperlink 
+{
+color: #AA0202; 
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 8pt; 
+font-weight: normal; 
+text-decoration: underline; 
+}
+
+/* This class is used for the label Return Priority */
+.lblBg{
+background-color:#EAEAEA; 
+color: #000000;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 8pt; 
+font-weight: normal; 
+text-decoration: none;
+BORDER-BOTTOM: none; 
+BORDER-LEFT: none; 
+BORDER-RIGHT: none; 
+BORDER-TOP: none;
+}
+
+
+.submenu{
+background-color:#212E6E;
+color: #ffffff;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 8pt;
+font-weight: bold;
+}
+
+A.smlink:link {
+		color: #ffffff;
+		text-decoration:none;
+		}
+
+A.smlink:visited {
+		color: #ffffff;
+		text-decoration:none;
+		}
+
+A.smlink:hover {
+		color: #ffffff;
+		text-decoration:underline;
+		}
+
+A.smlink:active {
+		color: #ffffff;
+		text-decoration:none;
+}
+
+.activesubmenu{
+background-color:#8292BA;
+color: #ffffff;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 8pt;
+font-weight: bold;
+}
+
+.inputlarge{
+width:75px;
+}
+
+.menubackground{
+background-repeat:repeat; background-image:url(../images/menubackground.gif);
+color: #ffffff; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 8pt; font-weight: normal;
+text-decoration:none;
+}
+
+.linkseparator{
+background-color:#ffffff;
+}
+.blueseparator{
+background-color:#212E6E;
+}
+.greyseparator
+{
+background-color:#EAEAEA; 
+BORDER-BOTTOM: #99A29B 1px solid; 
+BORDER-LEFT: #99A29B 1px solid; 
+BORDER-RIGHT: #99A29B 1px solid; 
+BORDER-TOP: #99A29B 1px solid;
+}
+
+.purpleseparator
+{
+background-color:#D2D9FC; 
+BORDER-BOTTOM: #99A29B 1px solid; 
+BORDER-LEFT: #99A29B 1px solid; 
+BORDER-RIGHT: #99A29B 1px solid; 
+BORDER-TOP: #99A29B 1px solid;
+}
+
+
+
+.greyseparatorgrid
+{
+background-color:#939292; 
+}
+
+.bluebackground
+{
+background-color:#D2D9FC; 
+BORDER-BOTTOM: #7179A1 1px solid; 
+BORDER-LEFT: #7179A1 1px solid; 
+BORDER-RIGHT: #7179A1 1px solid; 
+BORDER-TOP: #7179A1 1px solid;
+}
+
+.pageheader
+{color: #ffffff;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10pt;
+font-weight: bold;}
+
+.errormessage
+{color: red;
+font-family: Arial;
+font-size: 12pt;
+font-weight: bold;
+text-transform: uppercase;
+}
+
+.pagesubheader
+{color: #99A29B;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 8pt;
+font-weight: bold;}
+
+.intro
+{color: #212E6E;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 11pt;
+font-weight: bold;}
+
+.login
+{color: #000000;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 9pt;
+font-weight: bold;}
+
+.tableheader 
+{
+background-color: #DAE1F4;
+FONT-SIZE:11px;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-weight:bold;
+COLOR:#4A5C70;
+}
+
+.tableinnercontent{
+	FONT-SIZE: 10px;
+	MARGIN: 1px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #3D4E63;
+	background-color: #F8F8F8; 	
+	text-decoration:none;
+	}
+.tableinnercontenthighlight{
+	FONT-SIZE: 10px;
+	MARGIN: 1px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	color: #AA0202;
+	background-color: #F8F8F8; 	
+	text-decoration:none;
+	}
+A.tableinnercontent:link {
+		COLOR: #3D4E63;
+		text-decoration:none;
+		}
+A.tableinnercontent:visited {
+		COLOR: #3D4E63;
+	text-decoration:none;
+		}
+A.tableinnercontent:hover {
+		COLOR: #748599;
+	text-decoration:underline;
+		}
+A.tableinnercontent:active {
+		COLOR: #3D4E63;
+	text-decoration:none;}
+
+.mainheader
+{color: #AA0202;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 11pt;
+font-weight: bold;}
+
+.subheader
+{color: #000000;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 9pt;
+font-weight: bold;}
+
+.cancelledsubheader
+{color: #000000;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 7pt;
+}
+
+.logintable
+{
+background-color:#ffffff; 
+BORDER-BOTTOM: #212E6E thick double; 
+BORDER-LEFT: #212E6E thick double; 
+BORDER-RIGHT: #212E6E thick double; 
+BORDER-TOP: #212E6E thick double;
+}
+
+.tableloginborder{
+background-color:#eeeeee;
+}
+.LargeHeaderCentered
+{color: #FFFFFF;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 16pt; 
+font-weight: normal; 
+text-decoration: none;
+TEXT-ALIGN: center;
+}
+.MidHeaderCentered
+{color: #FFFFFF;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 12pt; 
+font-weight: bold; 
+text-decoration: none;
+TEXT-ALIGN: center;
+}
+.MidHeaderCenteredBlack
+{color: Black;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 12pt; 
+font-weight: bold; 
+text-decoration: none;
+TEXT-ALIGN: center;
+}
+.MidHeaderLeft
+{color: #FFFFFF;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 12pt; 
+font-weight: bold; 
+text-decoration: none;
+TEXT-ALIGN: left;
+}
+.MidHeaderLeftBlack
+{color: Black;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 12pt; 
+font-weight: bold; 
+text-decoration: none;
+TEXT-ALIGN: left;
+}
+.DetailsTitles
+{color: #000000;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 10pt; 
+font-weight: bold; 
+text-decoration: none;
+TEXT-ALIGN: left;
+}
+.DetailsTitlesRight
+{color: #000000;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 10pt; 
+font-weight: bold; 
+text-decoration: none;
+TEXT-ALIGN: right;
+}
+.DetailsDetails
+{color: #000000;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 10pt; 
+font-weight: normal; 
+text-decoration: none;
+TEXT-ALIGN: left;
+}
+.generalcontenthighlight
+{color: #AA0202;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 8pt; 
+font-weight: normal; 
+text-decoration: none;
+}
+.generalcontent
+{color: #000000;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 8pt; 
+font-weight: normal; 
+text-decoration: none;
+}
+a.generalcontent:link
+{color: #000000;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 8pt; 
+font-weight: normal; 
+text-decoration: underline;
+}
+a.generalcontent:hover
+{color: #003C74;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 8pt; 
+font-weight: normal; 
+text-decoration: underline;
+}
+a.generalcontent:active
+{color: #000000;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 8pt; 
+font-weight: normal; 
+text-decoration: underline;
+}
+a.generalcontent:visited
+{color: #000000;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 8pt; 
+font-weight: normal; 
+text-decoration: underline;
+}
+
+.signup
+{color: #000000;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 8pt;
+font-weight: normal;
+text-decoration: none;
+}
+
+a.signup:link
+{color: #000000;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 8pt; 
+font-weight: normal; 
+text-decoration: none;
+}
+a.signup:hover
+{color: #762938;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 8pt; 
+font-weight: normal; 
+text-decoration: underline;
+}
+a.signup:active
+{color: #000000;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 8pt; 
+font-weight: normal; 
+text-decoration: none;
+}
+a.signup:visited
+{color: #000000;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 8pt; 
+font-weight: normal; 
+text-decoration: none;
+}
+
+.clicklink
+{color: #000000;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 8pt;
+font-weight: normal;
+text-decoration:underline;}
+
+a.clicklink:hover
+{color: #762938;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 8pt;
+font-weight: normal;
+text-decoration:underline;
+}
+
+.btn
+{
+FONT-WEIGHT: bold; 
+FONT-SIZE: 11px; 
+COLOR: #000000; 
+FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; 
+BACKGROUND-COLOR: #CDCCDF; 
+TEXT-ALIGN: center;
+}
+
+.btnh
+{
+FONT-WEIGHT: bold; 
+FONT-SIZE: 11px; 
+COLOR: #000000; 
+FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; 
+BACKGROUND-COLOR: #eaeaea; 
+TEXT-ALIGN: center;
+}
+
+.imagelink
+{
+    border-left:2px solid #212e6e;
+    border-right:2px solid #212e6e;
+    border-top:2px solid #212e6e;
+    border-bottom:2px solid #212e6e;
+}
+
+
+.button1
+{ 
+	background-color: #55A3FF; 
+	font-weight: bold; 
+	font-size: 12px; 
+	color: white;
+	width: 100;	
+} 
+.buttongrey
+{ 
+	background-color: grey; 
+	font-weight: bold; 
+	font-size: 12px; 
+	color: black;
+	width: 100;	
+}
+
+.buttonRed
+{ 
+	background-color: red; 
+	font-weight: bold; 
+	font-size: 12px; 
+	color: white;
+	width: 100;		
+} 
+a.generalcontentlargerblue:link
+{color: #003C74;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 10pt; 
+font-weight: bold; 
+text-decoration: none;
+}
+a.generalcontentlargerblue:visited
+{color: #003C74;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 10pt; 
+font-weight: bold; 
+text-decoration: none;
+}
+a.generalcontentlargerblue:hover
+{color: #000000;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 10pt; 
+font-weight: bold; 
+text-decoration: none;
+}
+a.generalcontentlargerblue:active
+{color: #003C74;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 10pt; 
+font-weight: bold; 
+text-decoration: none;
+}
+
+
+
+a.generalcontentlarger:link
+{color: #000000;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 10pt; 
+font-weight: bold; 
+text-decoration: none;
+}
+a.generalcontentlarger:visited
+{color: #000000;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 10pt; 
+font-weight: bold; 
+text-decoration: none;
+}
+a.generalcontentlarger:hover
+{color: #003C74;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 10pt; 
+font-weight: bold; 
+text-decoration: none;
+}
+a.generalcontentlarger:active
+{color: #000000;
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-size: 10pt; 
+font-weight: bold; 
+text-decoration: none;
+}
+.redinnercontent{
+	FONT-SIZE: 10px;
+	MARGIN: 1px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #3D4E63;
+	background-color: #F8F8F8; 	
+	text-decoration:none;
+	}
+.redinnercontenthighlight{
+	FONT-SIZE: 10px;
+	MARGIN: 1px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	color: #AA0202;
+	background-color: #F8F8F8; 	
+	text-decoration:none;
+	}
+A.redinnercontent:link {
+		COLOR: red;
+		text-decoration:none;
+		FONT-SIZE: 10px;
+		}
+A.redinnercontent:visited {
+		COLOR: red;
+	text-decoration:none;
+	FONT-SIZE: 10px;
+		}
+A.redinnercontent:hover {
+		COLOR: red;
+	text-decoration:underline;
+	FONT-SIZE: 10px;
+		}
+A.redinnercontent:active {
+		COLOR: red;
+		FONT-SIZE: 10px;
+	text-decoration:none;}
+	
+	
+	
+A.FleetExpressRed:link {
+		COLOR: #cc1126;
+		text-decoration:none;
+		FONT-SIZE: 12px;
+		font: Arial;
+		}
+A.FleetExpressRed:visited {
+		COLOR: #cc1126;
+	text-decoration:none;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.FleetExpressRed:hover {
+		COLOR: black;
+	text-decoration:none;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.FleetExpressRed:active {
+		COLOR: #cc1126;
+		FONT-SIZE: 12px;
+	text-decoration:none;
+	font: Arial;}
+	
+	
+	
+A.FleetExpressGreen:link {
+		COLOR: #41924B;
+		text-decoration:none;
+		FONT-SIZE: 12px;
+		font: Arial;
+		}
+A.FleetExpressGreen:visited {
+		COLOR: #41924B;
+	text-decoration:none;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.FleetExpressGreen:hover {
+		COLOR: black;
+	text-decoration:none;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.FleetExpressGreen:active {
+		COLOR: #41924B;
+		FONT-SIZE: 12px;
+	text-decoration:none;
+	font: Arial;}		
+	
+	
+	
+		
+	
+A.FleetExpressBlue:link {
+		COLOR: #216194;
+		text-decoration:none;
+		FONT-SIZE: 12px;
+		font: Arial;
+		}
+A.FleetExpressBlue:visited {
+		COLOR: #216194;
+	text-decoration:none;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.FleetExpressBlue:hover {
+		COLOR: black;
+	text-decoration:none;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.FleetExpressBlue:active {
+		COLOR: #216194;
+		FONT-SIZE: 12px;
+	text-decoration:none;
+	font: Arial;}	
+	
+A.FleetExpressGrey:link {
+		COLOR: #525151;
+		text-decoration:none;
+		FONT-SIZE: 12px;
+		font: Arial;
+		}
+A.FleetExpressGrey:visited {
+		COLOR: #525151;
+	text-decoration:none;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.FleetExpressGrey:hover {
+		COLOR: black;
+	text-decoration:none;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.FleetExpressGrey:active {
+		COLOR: #525151;
+		FONT-SIZE: 12px;
+	text-decoration:none;
+	font: Arial;}	
+	
+	
+A.FleetExpressBlack:link {
+		COLOR: black;
+		text-decoration:none;
+		FONT-SIZE: 12px;
+		font: Arial;
+		}
+A.FleetExpressBlack:visited {
+		COLOR: black;
+	text-decoration:none;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.FleetExpressBlack:hover {
+		COLOR: black;
+	text-decoration:none;
+	font-weight:bold;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.FleetExpressBlack:active {
+		COLOR: black;
+		FONT-SIZE: 12px;
+	text-decoration:none;
+	font: Arial;}		
+	
+	
+	
+	
+	
+		
+A.RaytheonRed:link {
+		COLOR: #cc1126;
+		text-decoration:none;
+		FONT-SIZE: 12px;
+		font: Arial;
+		}
+A.RaytheonRed:visited {
+		COLOR: #cc1126;
+	text-decoration:none;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.RaytheonRed:hover {
+		COLOR: black;
+	text-decoration:none;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.RaytheonRed:active {
+		COLOR: #cc1126;
+		FONT-SIZE: 12px;
+	text-decoration:none;
+	font: Arial;}	
+	
+A.RaytheonBlue:link {
+		COLOR: #216194;
+		text-decoration:none;
+		FONT-SIZE: 12px;
+		font: Arial;
+		}
+A.RaytheonBlue:visited {
+		COLOR: #216194;
+	text-decoration:none;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.RaytheonBlue:hover {
+		COLOR: black;
+	text-decoration:none;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.RaytheonBlue:active {
+		COLOR: #216194;
+		FONT-SIZE: 12px;
+	text-decoration:none;
+	font: Arial;}	
+	
+A.RaytheonGrey:link {
+		COLOR: #525151;
+		text-decoration:none;
+		FONT-SIZE: 12px;
+		font: Arial;
+		}
+A.RaytheonGrey:visited {
+		COLOR: #525151;
+	text-decoration:none;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.RaytheonGrey:hover {
+		COLOR: black;
+	text-decoration:none;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.RaytheonGrey:active {
+		COLOR: #525151;
+		FONT-SIZE: 12px;
+	text-decoration:none;
+	font: Arial;}	
+	
+	
+A.RaytheonBlack:link {
+		COLOR: black;
+		text-decoration:none;
+		FONT-SIZE: 12px;
+		font: Arial;
+		}
+A.RaytheonBlack:visited {
+		COLOR: black;
+	text-decoration:none;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.RaytheonBlack:hover {
+		COLOR: black;
+	text-decoration:none;
+	font-weight:bold;
+	FONT-SIZE: 12px;
+	font: Arial;
+		}
+A.RaytheonBlack:active {
+		COLOR: black;
+		FONT-SIZE: 12px;
+	text-decoration:none;
+	font: Arial;}			
+
+
+
+
+
+/* Classes end here */
+
+
+/* IDs are defined here */
+
+
+/* IDs end here */
+.header { color: #212e6e; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 9pt; font-weight: bold; }
+.mainheader { color: #660099; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11pt; font-weight: bold; }
+.miniheader {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #AA0202}

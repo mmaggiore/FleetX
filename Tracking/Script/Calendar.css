@@ -1,0 +1,115 @@
+/* Calendar title */
+.titleStyle {
+	background-color: #212E6E;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	font-weight: bold;
+	color: #ffffff;
+}
+
+/* Month Year and Fix */
+.headerStyle {
+	background-color: #c7b7b7;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	font-weight: bold;
+	color: #990000;
+}
+
+/* Together these 2 define the color theme for the window */
+.borderColor {
+	background-color: #212E6E;
+}
+.innerColor {
+	background-color: #c7b7b7;
+}
+
+/* Smart Nav Styles */
+.monthEntryStyle {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 9pt;
+	color: #990000;
+}
+.yearEntryStyle {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 9pt;
+	color: #990000;
+}
+.yearArrowStyle {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	color: #990000;
+}
+
+/* Nav Style */
+.navStyle {
+	background-color: #c7b7b7;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	font-weight: bold;
+	color: #000099;
+}
+
+.weekdayHeaderStyle {
+	background-color: #c7b7b7;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	font-weight: bold;
+	color: #990000;
+}
+
+/* Calendar Data Styles */
+.todayStyle {
+	background-color: #ff0000;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	color: #00ffff;
+}
+
+.normalStyle  {
+	background-color: #c7b7b7;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	color: #000000;
+}
+.dimStyle {
+	background-color: #ffffff;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	color: #b0b0b0;
+}
+.linkStyle {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	color: #000000;
+	text-decoration: underline;
+}
+
+/* Style for weekends */
+.weekendStyle {
+	background-color: #e0e0e0;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	color: #000000;
+}
+.dimWeekendStyle {
+	background-color: #ffffff;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	color: #b0b0b0;
+}
+
+/* Style for holidays */
+.holidayStyle {
+	background-color: #990000;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	color: #ffffff;
+}
+.holidayLinkStyle {
+	background-color: #990000;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	color: #ffffff;
+	text-decoration: underline;
+}

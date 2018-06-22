@@ -1,0 +1,87 @@
+<!-- *** SIGNATURE CAPTURE APPLET ***
+
+     After spending 2 days getting the damn applet to work (I never used java before!), I decided
+     that I would stick it on the web for other people to use. The reasons for this were twofold:-
+
+     FIRSTLY -  I was amazed that such a basic thing was not freely available. There were loads
+     of companies quite happy to take money off you in exchange for an applet that may or may not
+     do what you want them to... but you can't get to the source code and you can't change stuff
+     at the grass roots level.
+     
+     SECONDLY - Having spent 2 days getting it going I hope that others will not have to waste
+     time doing the same thing. Instead you can spend the time customising it to your needs!!!
+     I'm not a java programmer so it should probably have taken an hour buy hey!
+     
+     ACKNOWLEDGEMENTS - I must admit that the basic "draw stuff when the mouse is moved" code
+     came from the demo DrawTest applet that ships with JRE. I just hacked out the bits I didn't
+     want like colours and the tool panel until I had a basic "Sign here" type applet.
+     
+     WHAT THE APPLET GIVES YOU - Well you don't get a bitmap or gif out but you do get a list of
+     vector coordinates that describe the signature. You can stick this string of digits in a 
+     database or file and use the sign() and decode(...) functions of the applet to get and put
+     information to the "Sign Here" area.
+     
+     You can clear the applet by using the unremarkably named clear() method! or by doing a decode()
+     with an empty string. Other functionality can easily be added as required - I added a lock() and
+     unlock() facility so users couldn't change a signature once its been input. 
+
+     FREEWARE - Feel free to use, modify and generally have fun with this applet. Feel free to link back
+     to my site to ensure you get any extra functionality I add in the future.
+     
+     WEB - www.clayzer.com  then check out the Resources/Freeware Section.
+     
+     BUGS - Please not that although the code works fine in Explorer, there is a slight delay on
+     execution of the first function when used in Firefox. This is something to do with the java 
+     execution rights. Any ideas on how to prevent this delay would be great!
+     ---------------------------------------------------------------------------------
+     USAGE - Embed the applet in a page as shown below. If you stick it in a table it makes it 
+     much easier to position with align="center" and valign="middle" etc.
+     
+     The demo below will give you access to most of the features for trying it out.
+-->
+
+<html>
+  <body>
+  <!-- Use the onSubmit event to trigger the capture of the signature just prior to form submission 
+       the line shown will bung the signature data into a hidden field so that it will be 
+       submitted along with any other fields you may have. Its then up to your backend database
+       to grab and use this data. If you're using PHP you can use $_REQUEST['sigdata'] to give
+       you the data that was in the hidden field.
+       
+       Note I have cleared the text1 field so it does not get submitted. This way you will see only 
+       the signature data from the applet streamed in the URL header...
+       
+       In the URL you should see a paramter similar to:- sigdata=143%2C23%2C-1%2C-1... this is 
+       your signature data! Scribble a signature now and click "Submit" then check the addressbar
+       for the URL (including your data).
+   -->
+<form onSubmit="text1.value='';sigdata.value=SigBlock.sign();">
+      <h1>Signature Capture Applet</h1>
+      <hr>
+      
+<!-- Sticking applet in a table can help with its formatting... -->
+<table border=0 cellspacing=0 cellpadding=0><tr><td>
+
+    <applet name='SigBlock' code='SigBlock.class' width=301 height=76>
+	alt="Your browser understands the &lt;APPLET&gt; tag but isn't running the applet for some reason."
+	Your browser is completely ignoring the &lt;APPLET&gt; tag!</applet>
+	
+    <input type='hidden' name='sigdata' value=''>
+    <!-- Hidden field gives a placeholder for the signature information to be placed prior to form submit -->
+	
+</td></tr></table>
+
+<textarea name='text1' cols='65' rows='20' wrap>Draw in the sig area then click sign and the signature data will be dumped here...</textarea><br>
+
+<input type='button' name='sign'   value='Sign'   onClick='text1.value=SigBlock.sign();'>
+<input type='button' name='decode' value='Decode' onClick='SigBlock.decode(text1.value);'>
+<input type='button' name='clear'  value='Clear'  onClick='SigBlock.clear();'>
+<input type='button' name='lock'   value='Lock'   onClick='SigBlock.lock();'>
+<input type='button' name='unlock' value='UnLock' onClick='SigBlock.unlock();'>
+<input type='submit' name='submit' value='Submit'>
+
+<br><br>Visit <a href="http://www.clayzer.com">www.clayzer.com</a> for updates and enhancements - plus of course the .java source code!
+</form>
+  </body>
+</html>
+

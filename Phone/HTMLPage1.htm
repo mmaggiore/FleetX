@@ -1,0 +1,2387 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<script language="JavaScript">
+
+    function disableEnterKey(e) {
+        var key;
+        if (window.event)
+            key = window.event.keyCode; //IE
+        else
+            key = e.which; //firefox      
+
+        return (key != 13);
+    }
+
+</script>
+<%
+DisplayCookie=Request.Cookies("Location_Logisticorp")("LocationAlias")
+'Response.Write "DisplayCookie="&DisplayCookie&"<BR>"
+DisplayUserName=trim(Session("sUsername"))
+DisplayBillToID=Session("sBT_ID")
+lwelcomename=session("lwelcomename")
+If trim(lwelcomename)="" then
+    lWelcomename=trim(lcase(Welcomename))
+end if
+'response.write "lwelcomename="&lwelcomename&"*******<BR>"
+Select Case DisplayUserName
+	Case "comps"
+		DisplayUserName="Compugraphics"
+		DisplayHeight="49"
+		DisplayWidth="231"
+		DisplayMaterialType="Reticle"
+		homepage="TopanDefault.asp"
+	Case "Toppan"
+		DisplayUserName="Toppan"
+		DisplayHeight="78"
+		DisplayWidth="174"
+		homepage="TopanDefault.asp"
+		DisplayMaterialType="Reticle"
+	Case "pho"
+		DisplayUserName="Photronics"
+		DisplayHeight="29"
+		DisplayWidth="133"
+		homepage="TopanDefault.asp"
+		DisplayMaterialType="Reticle"
+	Case "tisherman"
+		DisplayUserName="TI-Sherman"
+		DisplayHeight="1"
+		DisplayWidth="1"
+		homepage="TopanDefault.asp"	
+		DisplayMaterialType="Reticle"
+	Case "tiwf"
+		DisplayUserName="TI-Wafer"
+		DisplayHeight="1"
+		DisplayWidth="1"
+		homepage="FabDefault.asp"
+		DisplayMaterialType="Wafer"								
+End Select
+%>
+<!-- #include file="../include/custom.inc" -->
+<!-- #include file="../include/checkstring.inc" -->
+<link rel="stylesheet" type="text/css" href="../../../phone/mainStyleSheet.css">
+<script language="javascript" type="text/javascript" src="datetimepicker.js">
+//Date Time Picker script- by TengYong Ng of http://www.rainforestnet.com
+//Script featured on JavaScript Kit (http://www.javascriptkit.com)
+//For this script, visit http://www.javascriptkit.com 
+</script>
+<script type="text/javascript">
+/***********************************************
+* Textarea Maxlength script- © Dynamic Drive (www.dynamicdrive.com)
+* This notice must stay intact for legal use.
+* Visit http://www.dynamicdrive.com/ for full source code
+***********************************************/
+function ismaxlength(obj){
+var mlength=obj.getAttribute? parseInt(obj.getAttribute("maxlength")) : ""
+if (obj.getAttribute && obj.value.length>mlength)
+obj.value=obj.value.substring(0,mlength)
+}
+</script>
+<SCRIPT LANGUAGE=JAVASCRIPT>
+	window.parent.frames['FraTop'].location.href = '../nav/ifabnavbar.asp?Mainmenu=order';
+</SCRIPT>
+<!-- #include file="../include/ifabsettings.inc" -->
+<title><%=DisplayUserName%>  <%=DisplayMaterialType%> Order Page</title>
+<%
+	''''''''''''''''DATA FOR THE SCHEDULES''''''''''''''''''''''''
+	'''''Response.Write "now="& Now() &"<BR>"
+	'''''If Y=0 then Response.Write "There are NO wafers<BR>" end if
+	'''''If Y>0 then Response.Write "There ARE wafers!<BR>" end if
+	'''''If PO="y" then Response.Write "There are PO's!<BR>" end if
+	DMonth=month(now())
+	RMonth=DMonth
+	DDay=day(now())
+	RDay=DDay
+	DYear=year(now())
+	RYear=DYear
+	'TodaysDate=DDay&"/"&DMonth&"/"&DYear
+	TodaysDate=Date()
+	LastDate=Cdate(TodaysDate)+60
+	'''''Response.Write "XXXTodaysDate="&TodaysDate&"<BR>"
+	'''''Response.Write "XXXLastDate="&LastDate&"<BR>"
+	Select Case DMonth
+		Case "1"
+			WordMonth="January"
+		Case "2"
+			WordMonth="February"
+		Case "3"
+			WordMonth="March"
+		Case "4"
+			WordMonth="April"
+		Case "5"
+			WordMonth="May"
+		Case "6"
+			WordMonth="June"
+		Case "7"
+			WordMonth="July"
+		Case "8"
+			WordMonth="August"
+		Case "9"
+			WordMonth="September"
+		Case "10"
+			WordMonth="October"
+		Case "11"
+			WordMonth="November"
+		Case "12"
+			WordMonth="December"
+	End Select	
+	''''''''''''''''END THE DATA FOR THE SCHEDULES'''''''''''''''''''
+    ''''''''''''''''''Get Variables''''''''''''''''''''''''''
+l_lRoundTrip="0"
+l_cIndustry="A"
+l_cStatus="RAP"
+BoxID=Request.Form("BoxID")
+HighlightedField="UserID"
+PageStatus=Request.Form("PageStatus")
+UserID=Request.Form("UserID")
+BillToID=Trim(Session("sBT_ID"))
+If BillToID="" then
+	PageStatus="TimeOut"
+end if
+ShipMethod=Request.Form("ShipMethod")
+If ShipMethod="" then
+	ShipMethod="fleet"
+End if
+ResponsibleParty=Request.Form("ResponsibleParty")
+AuthorizedBy=Request.Form("AuthorizedBy")
+ETA=Request.Form("ETA")
+user3=Request.Form("User3")
+fl_sf_addr1=Request.Form("fl_sf_addr1")
+fl_sf_addr2=Request.Form("fl_sf_addr2")
+fl_sf_city=Request.Form("fl_sf_city")
+fl_sf_state=Request.Form("fl_sf_state")
+Priority=Request.Form("Priority")
+Comments=Request.Form("Comments")
+Comments=Replace(Comments,"'", "`")
+Comments=Replace(Comments,"""", "`")
+MaterialType=Request.Form("MaterialType")
+If MaterialType="ITAR" then
+    ITARSELECTED="Selected"
+End if
+BillToName=trim(Session("sUsername"))
+ReticleNumber1=trim(Request.Form("ReticleNumber1"))
+ReticleNumber2=trim(Request.Form("ReticleNumber2"))
+ReticleNumber3=trim(Request.Form("ReticleNumber3"))
+ReticleNumber4=trim(Request.Form("ReticleNumber4"))
+ReticleNumber5=trim(Request.Form("ReticleNumber5"))
+ReticleNumber6=trim(Request.Form("ReticleNumber6"))
+ReticleNumber7=trim(Request.Form("ReticleNumber7"))
+ReticleNumber8=trim(Request.Form("ReticleNumber8"))
+ReticleNumber9=trim(Request.Form("ReticleNumber9"))
+ReticleNumber10=trim(Request.Form("ReticleNumber10"))
+ReticleNumber11=trim(Request.Form("ReticleNumber11"))
+ReticleNumber12=trim(Request.Form("ReticleNumber12"))
+ReticleNumber13=trim(Request.Form("ReticleNumber13"))
+ReticleNumber14=trim(Request.Form("ReticleNumber14"))
+ReticleNumber15=trim(Request.Form("ReticleNumber15"))
+ReticleNumber16=trim(Request.Form("ReticleNumber16"))
+ReticleNumber17=trim(Request.Form("ReticleNumber17"))
+ReticleNumber18=trim(Request.Form("ReticleNumber18"))
+ReticleNumber19=trim(Request.Form("ReticleNumber19"))
+ReticleNumber20=trim(Request.Form("ReticleNumber20"))
+ReticleNumber21=trim(Request.Form("ReticleNumber21"))
+ReticleNumber22=trim(Request.Form("ReticleNumber22"))
+ReticleNumber23=trim(Request.Form("ReticleNumber23"))
+ReticleNumber24=trim(Request.Form("ReticleNumber24"))
+ReticleNumber25=trim(Request.Form("ReticleNumber25"))
+ReticleNumber26=trim(Request.Form("ReticleNumber26"))
+ReticleNumber27=trim(Request.Form("ReticleNumber27"))
+ReticleNumber28=trim(Request.Form("ReticleNumber28"))
+ReticleNumber29=trim(Request.Form("ReticleNumber29"))
+ReticleNumber30=trim(Request.Form("ReticleNumber30"))
+ReticleNumber31=trim(Request.Form("ReticleNumber31"))
+ReticleNumber32=trim(Request.Form("ReticleNumber32"))
+ReticleNumber33=trim(Request.Form("ReticleNumber33"))
+ReticleNumber34=trim(Request.Form("ReticleNumber34"))
+ReticleNumber35=trim(Request.Form("ReticleNumber35"))
+ReticleNumber36=trim(Request.Form("ReticleNumber36"))
+ReticleNumber37=trim(Request.Form("ReticleNumber37"))
+ReticleNumber38=trim(Request.Form("ReticleNumber38"))
+ReticleNumber39=trim(Request.Form("ReticleNumber39"))
+ReticleNumber40=trim(Request.Form("ReticleNumber40"))
+ReticleNumber41=trim(Request.Form("ReticleNumber41"))
+ReticleNumber42=trim(Request.Form("ReticleNumber42"))
+ReticleNumber43=trim(Request.Form("ReticleNumber43"))
+ReticleNumber44=trim(Request.Form("ReticleNumber44"))
+ReticleNumber45=trim(Request.Form("ReticleNumber45"))
+ReticleNumber46=trim(Request.Form("ReticleNumber46"))
+ReticleNumber47=trim(Request.Form("ReticleNumber47"))
+ReticleNumber48=trim(Request.Form("ReticleNumber48"))
+ReticleNumber49=trim(Request.Form("ReticleNumber49"))
+ReticleNumber50=trim(Request.Form("ReticleNumber50"))
+
+
+ReticleNumber1=Replace(ReticleNumber1," ","")
+ReticleNumber2=Replace(ReticleNumber2," ","")
+ReticleNumber3=Replace(ReticleNumber3," ","")
+ReticleNumber4=Replace(ReticleNumber4," ","")
+ReticleNumber5=Replace(ReticleNumber5," ","")
+ReticleNumber6=Replace(ReticleNumber6," ","")
+ReticleNumber7=Replace(ReticleNumber7," ","")
+ReticleNumber8=Replace(ReticleNumber8," ","")
+ReticleNumber9=Replace(ReticleNumber9," ","")
+ReticleNumber10=Replace(ReticleNumber10," ","")
+ReticleNumber11=Replace(ReticleNumber11," ","")
+ReticleNumber12=Replace(ReticleNumber12," ","")
+ReticleNumber13=Replace(ReticleNumber13," ","")
+ReticleNumber14=Replace(ReticleNumber14," ","")
+ReticleNumber15=Replace(ReticleNumber15," ","")
+ReticleNumber16=Replace(ReticleNumber16," ","")
+ReticleNumber17=Replace(ReticleNumber17," ","")
+ReticleNumber18=Replace(ReticleNumber18," ","")
+ReticleNumber19=Replace(ReticleNumber19," ","")
+ReticleNumber20=Replace(ReticleNumber20," ","")
+ReticleNumber21=Replace(ReticleNumber21," ","")
+ReticleNumber22=Replace(ReticleNumber22," ","")
+ReticleNumber23=Replace(ReticleNumber23," ","")
+ReticleNumber24=Replace(ReticleNumber24," ","")
+ReticleNumber25=Replace(ReticleNumber25," ","")
+ReticleNumber26=Replace(ReticleNumber26," ","")
+ReticleNumber27=Replace(ReticleNumber27," ","")
+ReticleNumber28=Replace(ReticleNumber28," ","")
+ReticleNumber29=Replace(ReticleNumber29," ","")
+ReticleNumber30=Replace(ReticleNumber30," ","")
+ReticleNumber31=Replace(ReticleNumber31," ","")
+ReticleNumber32=Replace(ReticleNumber32," ","")
+ReticleNumber33=Replace(ReticleNumber33," ","")
+ReticleNumber34=Replace(ReticleNumber34," ","")
+ReticleNumber35=Replace(ReticleNumber35," ","")
+ReticleNumber36=Replace(ReticleNumber36," ","")
+ReticleNumber37=Replace(ReticleNumber37," ","")
+ReticleNumber38=Replace(ReticleNumber38," ","")
+ReticleNumber39=Replace(ReticleNumber39," ","")
+ReticleNumber40=Replace(ReticleNumber40," ","")
+ReticleNumber41=Replace(ReticleNumber41," ","")
+ReticleNumber42=Replace(ReticleNumber42," ","")
+ReticleNumber43=Replace(ReticleNumber43," ","")
+ReticleNumber44=Replace(ReticleNumber44," ","")
+ReticleNumber45=Replace(ReticleNumber45," ","")
+ReticleNumber46=Replace(ReticleNumber46," ","")
+ReticleNumber47=Replace(ReticleNumber47," ","")
+ReticleNumber48=Replace(ReticleNumber48," ","")
+ReticleNumber49=Replace(ReticleNumber49," ","")
+ReticleNumber50=Replace(ReticleNumber50," ","")
+
+
+
+
+'Pieces=1
+If trim(ReticleNumber1)>"" then Pieces=1 end if
+If trim(ReticleNumber2)>"" then Pieces=2 end if
+If trim(ReticleNumber3)>"" then Pieces=3 end if
+If trim(ReticleNumber4)>"" then Pieces=4 end if
+If trim(ReticleNumber5)>"" then Pieces=5 end if
+If trim(ReticleNumber6)>"" then Pieces=6 end if
+If trim(ReticleNumber7)>"" then Pieces=7 end if
+If trim(ReticleNumber8)>"" then Pieces=8 end if
+If trim(ReticleNumber9)>"" then Pieces=9 end if
+If trim(ReticleNumber10)>"" then Pieces=10 end if
+If trim(ReticleNumber11)>"" then Pieces=11 end if
+If trim(ReticleNumber12)>"" then Pieces=12 end if
+If trim(ReticleNumber13)>"" then Pieces=13 end if
+If trim(ReticleNumber14)>"" then Pieces=14 end if
+If trim(ReticleNumber15)>"" then Pieces=15 end if
+If trim(ReticleNumber16)>"" then Pieces=16 end if
+If trim(ReticleNumber17)>"" then Pieces=17 end if
+If trim(ReticleNumber18)>"" then Pieces=18 end if
+If trim(ReticleNumber19)>"" then Pieces=19 end if
+If trim(ReticleNumber20)>"" then Pieces=20 end if
+If trim(ReticleNumber21)>"" then Pieces=21 end if
+If trim(ReticleNumber22)>"" then Pieces=22 end if
+If trim(ReticleNumber23)>"" then Pieces=23 end if
+If trim(ReticleNumber24)>"" then Pieces=24 end if
+If trim(ReticleNumber25)>"" then Pieces=25 end if
+If trim(ReticleNumber26)>"" then Pieces=26 end if
+If trim(ReticleNumber27)>"" then Pieces=27 end if
+If trim(ReticleNumber28)>"" then Pieces=28 end if
+If trim(ReticleNumber29)>"" then Pieces=29 end if
+If trim(ReticleNumber30)>"" then Pieces=30 end if
+If trim(ReticleNumber31)>"" then Pieces=31 end if
+If trim(ReticleNumber32)>"" then Pieces=32 end if
+If trim(ReticleNumber33)>"" then Pieces=33 end if
+If trim(ReticleNumber34)>"" then Pieces=34 end if
+If trim(ReticleNumber35)>"" then Pieces=35 end if
+If trim(ReticleNumber36)>"" then Pieces=36 end if
+If trim(ReticleNumber37)>"" then Pieces=37 end if
+If trim(ReticleNumber38)>"" then Pieces=38 end if
+If trim(ReticleNumber39)>"" then Pieces=39 end if
+If trim(ReticleNumber40)>"" then Pieces=40 end if
+If trim(ReticleNumber41)>"" then Pieces=41 end if
+If trim(ReticleNumber42)>"" then Pieces=42 end if
+If trim(ReticleNumber43)>"" then Pieces=43 end if
+If trim(ReticleNumber44)>"" then Pieces=44 end if
+If trim(ReticleNumber45)>"" then Pieces=45 end if
+If trim(ReticleNumber46)>"" then Pieces=46 end if
+If trim(ReticleNumber47)>"" then Pieces=47 end if
+If trim(ReticleNumber48)>"" then Pieces=48 end if
+If trim(ReticleNumber49)>"" then Pieces=49 end if
+If trim(ReticleNumber50)>"" then Pieces=50 end if
+
+'Response.Write "pieces="&pieces&"***<BR>"
+st_id=Request.Form("st_id")
+'Response.Write "st_id="&st_id&"***<BR>"
+'st_ID="CPGP"
+PreLocationAlias=Request.Form("PreLocationAlias")
+Submit=Request.Form("Submit")
+readytime=Request.Form("readytime")
+destination=Request.Form("destination")
+
+
+
+
+'''''''ERROR HANDLING''''''''''
+If PageStatus="OrderForm2" then
+	If trim(ReticleNumber1)="" then 
+		ErrorMessage="You must enter at least one "&DisplayMaterialType&" number" 
+		HighlightedField="ReticleNumber1"
+	end if
+	If MaterialType="" then 
+		ErrorMessage="You must select a material type" 
+		HighlightedField="MaterialType"
+	end if	
+	If UserID="" then 
+		ErrorMessage="You must enter an employee ID" 
+		HighlightedField="UserID"
+	end if
+If trim(st_id)="SFABQC" and trim(BoxID)="" then
+    	ErrorMessage="You must scan the Cart ID" 
+		HighlightedField="BoxID"
+End if	
+	
+CurrentHour=Hour(Now())
+'Response.Write "CurrentHour="&CurrentHour&"<BR>"	
+'''''''''''''''''''''''''''''''''''
+'ITAR can only be transferred between the hours of 7:00 am and 6:00 pm.
+''''''''''''''''''''''''''''''''''	
+If MaterialType="ITAR" and (CurrentHour<7 or CurrentHour>18) then
+    ErrorMessage="ITAR can only be transferred between the hours of 7:00 am and 6:00 pm."
+End if	
+	
+	
+	
+	
+		
+	If ErrorMessage>"" then
+		PageStatus="OrderForm1" 
+	end if
+End if
+If PageStatus="OrderForm3" then
+	If Destination="" then 
+		ErrorMessage="You must select a destination for this order." 
+		HighlightedField="Destination"
+	end if
+''''''''''''''''''''''''''''''''''''
+'Currently, an ITAR can only be sent to and from EBTW1, SCTQC, CSSF, and SCTA1.
+''''''''''''''''''''''''''''''''''''	
+If MaterialType="ITAR" and Destination<>"EBTW1" and Destination<>"SCTQC" and Destination<>"CSSF" and Destination<>"SCTA1" then
+    ErrorMessage="Currently, an ITAR can only be sent to and from EBTW1, SCTQC, CSSF, and SCTA1."
+End if	
+	
+	
+	
+	
+	If ErrorMessage>"" then
+		PageStatus="OrderForm2" 
+	end if
+			
+End if
+If PageStatus="OrderCompleted" then
+    If MaterialType="ITAR" and Priority<>"XP" then
+        ErrorMessage="An ITAR must be sent as an 'Expedited' priority."
+    End if	
+	If trim(AuthorizedBy)>"" AND (lcase(ShipMethod)="fleet") then 
+		ErrorMessage="Do NOT enter an 'authorized by' name if sending an order via TI Dedicated Fleet" 
+		HighlightedField="AuthorizedBy"
+	end if
+	If AuthorizedBy="" AND (ShipMethod="bus" or ShipMethod="air" or ShipMethod="drive" or ShipMethod="NTCS") then 
+		ErrorMessage="You must enter the name or id of the person who authorized the " & ShipMethod & " shipment" 
+		HighlightedField="AuthorizedBy"
+	end if
+	If trim(ETA)="" and ShipMethod="bus" then
+		ErrorMessage="If shipping by bus, you must provide the ETA of the bus into Dallas" 
+		HighlightedField="ETA"
+	End if
+	If (trim(ETA)>"" and ShipMethod="bus") and not isdate(ETA) then
+		ErrorMessage="The ETA must be a complete date and time...please use the calendar provided" 
+		ETA=""
+		HighlightedField="ETA"
+	End if			
+	If ErrorMessage>"" then
+		PageStatus="OrderForm3" 
+	end if		
+End if
+
+'Response.Write "HighlightedField="&HighlightedField&"***<BR>"
+''''''END ERROR HANDLING'''''''
+''''''FINDS DUE TIME''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'Response.Write "DATABASE="&DATABASE&"<BR>"
+If PageStatus="OrderCompleted" and ErrorMessage="" then
+    ReadyTime=Now()
+	Set RSEVENTS = Server.CreateObject("ADODB.Recordset")
+		RSEVENTS.CursorLocation = 3
+		RSEVENTS.CursorType = 3
+		RSEVENTS.ActiveConnection = DATABASE
+		SQL = "SELECT PriorityMinutes FROM Priorities where (priority = '"&priority&"') AND (Priority_BT_ID='"&BillToID&"') AND (PriorityOrigination='"&st_id&"') AND (PriorityDestination='"&Destination&"')"
+		'Response.Write "SQL="&SQL&"<BR>"
+		RSEVENTS.Open SQL, DATABASE, 1, 3
+		If Not RSEVENTS.EOF then
+		    'Response.Write "GOT HERE 1!<br>"
+	        PriorityTime=RSEVENTS("PriorityMinutes")
+	       ' Response.Write "PriorityTime1111111="&PriorityTime&"<BR>"
+	    End if
+		RSEVENTS.close
+	Set RSEVENTS = Nothing	
+	If trim(PriorityTime)="" then
+        Set RSEVENTS = Server.CreateObject("ADODB.Recordset")
+	        RSEVENTS.CursorLocation = 3
+	        RSEVENTS.CursorType = 3
+	        RSEVENTS.ActiveConnection = DATABASE
+	        SQL = "SELECT PriorityMinutes FROM Priorities where (priority = '"&priority&"') AND (Priority_BT_ID='"&BillToID&"') AND (PriorityOrigination='Default') AND (PriorityDestination='Default')"
+	        'Response.Write "222SQL="&SQL&"<BR>"
+	        RSEVENTS.Open SQL, DATABASE, 1, 3
+	        'Response.Write "GOT HERE 2!<br>"
+	        PriorityTime=RSEVENTS("PriorityMinutes")
+	        'Response.Write "PriorityTime222222="&PriorityTime&"<BR>"
+	        RSEVENTS.close
+        Set RSEVENTS = Nothing		
+	End if
+	'''''DueTime=(DateAdd("n",PriorityTime,ReadyTime))&"<BR>"
+'''''''FINDS CONTACT INFO FOR THE DROPZONE''''''''''''''''''''''''''''''''''''	
+	Set RSEVENTS = Server.CreateObject("ADODB.Recordset")
+		RSEVENTS.CursorLocation = 3
+		RSEVENTS.CursorType = 3
+		RSEVENTS.ActiveConnection = DATABASE
+		SQL = "SELECT st_email FROM fcshipto where (st_id = '"&destination&"')"
+		RSEVENTS.Open SQL, DATABASE, 1, 3
+		DestinationEmail=RSEVENTS("st_email")
+		RSEVENTS.close
+	Set RSEVENTS = Nothing	
+	'DueTime=(DateAdd("n",PriorityTime,ReadyTime))
+	DueTime=(DateAdd("n",PriorityTime,ReadyTime))
+	'Response.Write "XXXDueTime="&DueTime&"***<BR>"
+	'If isdate(DueTime) then response.Write "HELLO????<BR>"	
+	DueTime=cDate(DueTime)
+	ReadyTime=cDate(ReadyTime)
+
+
+	''''XXXXXXXXXXXXPLACEORDERHEREXXXXXXXXXXX
+	Set oConn = Server.CreateObject("ADODB.Connection")
+		oConn.ConnectionTimeout = 100
+		oConn.Provider = "MSDASQL"
+		oConn.Open DATABASE
+		''''GETSNEWJOBNUMBER
+		'Response.Write "GOT HERE....<BR>"
+		l_cSql = "EXEC pr_GetJobNum"
+		Set oRs = oConn.Execute(l_cSql)
+		newjobnum = oRs.Fields("fh_id")	
+		''''PLACESJOB
+		''''''''''Response.write "newjobnum="&newjobnum&"<BR>"
+		'''''''''''''LOOP FOR MULTI-LEGS''''''''''''''''''''''''''''
+	    
+		Set oConn69 = Server.CreateObject("ADODB.Connection")
+		oConn69.ConnectionTimeout = 100
+		oConn69.Provider = "MSDASQL"
+		oConn69.Open DATABASE
+		    SQL31 = "SELECT LegOrigin, LegDestination, LegNumber, NumberOfLegs FROM FCMultiLeg where (LegOriginalOrigination = '"&st_id&"') AND (LegOriginalDestination = '"&destination&"') AND (MultiLegStatus='c')"
+			'Response.Write "SQL31="&SQL31&"<BR>"
+			SET oRs69 = oConn69.Execute(SQL31)
+			If oRs69.eof then
+			'''''''''''''''''''''''''''''SEND DAVE MACHA AND TOMMY LYLES EMAIL ALERT'''''''''''''
+			'If trim(ResponsibleParty)="TI" or trim(ResponsibleParty)="TI Dallas" or trim(ResponsibleParty)="TI-Sherman" then
+
+		
+		If trim(st_id)="DNP" or trim(st_id)="CPGPSCOT" then		
+				Body = "RE:&nbsp;&nbsp; Job #&nbsp;&nbsp;"& NewJobNum &"<br><br>"   & _
+				"There has been an order sent from " & LegOrigin & " to " & Destination & ".<br><br>"   & _
+				"If you have any questions, please do not hesitate to contact me.<br><br>"   & _
+				"Thank you,<br><br>"   & _
+				"Mark Maggiore<br>"  & _
+				"LogistiCorp Web Developer<br>"  & _
+				"mark.maggiore@LogistiCorp.us<br>"  & _ 
+				"214/956-0400 xt 212<br><br>"
+				'Recipient=FirstName&" "&LastName
+				If Trim(Destination)="DLINR" OR Trim(Destination)="DFABR" then
+				    SentToEmail="mark.maggiore@logisticorp.us;2149080678@messaging.sprintpcs.com;t-lyles@ti.com"
+				    else
+				    SentToEmail="mark.maggiore@logisticorp.us;2149080678@messaging.sprintpcs.com;"
+				End if
+				'Email="KWETI.Mailbox@am.kwe.com"
+				'Email="mark@maggiore.net"
+				Set objMail = CreateObject("CDONTS.Newmail")
+				objMail.From = "System.Notification@logisticorp.us"
+				objMail.To = SentToEmail
+				'objMail.cc = "4692269939@tmomail.net;htmlmale@yahoo.com"
+				'objMail.cc = "4692269939@tmomail.net;pcurrin@ti.com"
+				objMail.Subject = "Job #"& NewJobNum & " sent via air"
+				objMail.MailFormat = cdoMailFormatMIME
+				objMail.BodyFormat = cdoBodyFormatHTML
+				objMail.Body = Body
+				objMail.Send
+				Set objMail = Nothing	
+		End if		
+		''''''''ADD FOR WHEN TI IS BILLED''''''''''''''''''
+		If trim(AuthorizedBy)>"" then
+			Set RSEVENTS2 = Server.CreateObject("ADODB.Recordset")
+				RSEVENTS2.Open "Courier_Authorization", DATABASE, 2, 2
+				RSEVENTS2.addnew
+				RSEVENTS2("fh_ID")=NewJobNum
+				RSEVENTS2("ResponsibleParty")=ResponsibleParty
+				RSEVENTS2("AuthorizedBy")=AuthorizedBy	
+				RSEVENTS2("Status")="c"								
+				RSEVENTS2.update
+				RSEVENTS2.close			
+			set RSEVENTS2 = nothing	
+			'''''''''''''''''''''''''''''SEND TI EMAIL ALERT'''''''''''''
+			'If trim(ResponsibleParty)="TI" or trim(ResponsibleParty)="TI Dallas" or trim(ResponsibleParty)="TI-Sherman" then
+				Body = "RE:&nbsp;&nbsp; Job #&nbsp;&nbsp;"& NewJobNum &"<br><br>"   & _
+				"There has been an order sent from " & LegOrigin & " to " & Destination & ".<br><br>"   & _
+				"It will be billed to: " & ResponsibleParty & "<br><br>"  & _
+				"It was authorized by: " & AuthorizedBy & "<br><br>"  & _
+				"If you have any questions, please do not hesitate to contact me.<br><br>"   & _
+				"Thank you,<br><br>"   & _
+				"Mark Maggiore<br>"  & _
+				"LogistiCorp Web Developer<br>"  & _
+				"mark.maggiore@LogistiCorp.us<br>"  & _ 
+				"214/956-0400 xt 212<br><br>"
+				'Recipient=FirstName&" "&LastName
+				SentToEmail="mark.maggiore@logisticorp.us;pcurrin@ti.com;c-durant@ti.com"
+				'Email="KWETI.Mailbox@am.kwe.com"
+				'Email="mark@maggiore.net"
+				Set objMail = CreateObject("CDONTS.Newmail")
+				objMail.From = "System.Notification@logisticorp.us"
+				objMail.To = SentToEmail
+				'objMail.cc = "4692269939@tmomail.net;htmlmale@yahoo.com"
+				'objMail.cc = "4692269939@tmomail.net;pcurrin@ti.com"
+				objMail.Subject = "Job #"& NewJobNum & " sent via " & shipmethod
+				objMail.MailFormat = cdoMailFormatMIME
+				objMail.BodyFormat = cdoBodyFormatHTML
+				objMail.Body = Body
+				objMail.Send
+				Set objMail = Nothing	
+			'End if			
+			'''''''''''''''''''''''''''''END SEND TI EMAIL ALERT'''''''''
+			'''''''''''''''''''''''''''''SEND DAVE MACHA AND TOMMY LYLES EMAIL ALERT'''''''''''''
+			'If trim(ResponsibleParty)="TI" or trim(ResponsibleParty)="TI Dallas" or trim(ResponsibleParty)="TI-Sherman" then
+
+		
+				
+				Body = "RE:&nbsp;&nbsp; Job #&nbsp;&nbsp;"& NewJobNum &"<br><br>"   & _
+				"There has been an order sent from " & LegOrigin & " to " & Destination & ".<br><br>"   & _
+				"If you have any questions, please do not hesitate to contact me.<br><br>"   & _
+				"Thank you,<br><br>"   & _
+				"Mark Maggiore<br>"  & _
+				"LogistiCorp Web Developer<br>"  & _
+				"mark.maggiore@LogistiCorp.us<br>"  & _ 
+				"214/956-0400 xt 212<br><br>"
+				'Recipient=FirstName&" "&LastName
+				If Trim(Destination)="DLINR" OR Trim(Destination)="DFABR" then
+				    SentToEmail="mark.maggiore@logisticorp.us;2149080678@messaging.sprintpcs.com;t-lyles@ti.com"
+				    else
+				    SentToEmail="mark.maggiore@logisticorp.us;2149080678@messaging.sprintpcs.com;"
+				End if
+				'Email="KWETI.Mailbox@am.kwe.com"
+				'Email="mark@maggiore.net"
+				Set objMail = CreateObject("CDONTS.Newmail")
+				objMail.From = "System.Notification@logisticorp.us"
+				objMail.To = SentToEmail
+				'objMail.cc = "4692269939@tmomail.net;htmlmale@yahoo.com"
+				'objMail.cc = "4692269939@tmomail.net;pcurrin@ti.com"
+				objMail.Subject = "Job #"& NewJobNum & " sent via " & shipmethod
+				objMail.MailFormat = cdoMailFormatMIME
+				objMail.BodyFormat = cdoBodyFormatHTML
+				objMail.Body = Body
+				objMail.Send
+				Set objMail = Nothing			
+			''''''''''''''''''''''''''''SEND ALERT TO NTCS'''''''''''''''''
+			'If ShipMethod="NTCS" AND trim(DisplayUserName)="TI-Sherman" and trim(Destination)="PHO" then
+			If ShipMethod="NTCS" AND trim(DisplayUserName)="TI-Sherman" then
+				Body = "RE:&nbsp;&nbsp; Job #&nbsp;&nbsp;"& NewJobNum &"<br><br>"   & _
+				"From: " & LegOrigin & " to " & Destination & ".<br><br>"   & _
+				"Ready to be picked up.<br><br>"  
+				'Recipient=FirstName&" "&LastName
+				SentToEmail="mark.maggiore@logisticorp.us;northtexascourier@hotmail.com;9032717026@mms.att.net"
+				'Email="KWETI.Mailbox@am.kwe.com"
+				'Email="mark@maggiore.net"
+				Set objMail = CreateObject("CDONTS.Newmail")
+				objMail.From = "System.Notification@logisticorp.us"
+				objMail.To = SentToEmail
+				'objMail.cc = "4692269939@tmomail.net;htmlmale@yahoo.com"
+				'objMail.cc = "4692269939@tmomail.net;pcurrin@ti.com"
+				objMail.Subject = "TI-Sherman Pick Up Ready"
+				objMail.MailFormat = cdoMailFormatMIME
+				objMail.BodyFormat = cdoBodyFormatHTML
+				objMail.Body = Body
+				objMail.Send
+				Set objMail = Nothing				
+			End If
+		End if		
+		''''''''END ADD FOR WHEN TI IS BILLED''''''''''''''			    
+		        '''''''''''''''''''PLACES A SINGLE LEG JOB''''''''''''''''''''''''
+		       '''''''''' Response.Write "333<BR>"
+		        l_cSQL = "EXEC pr_bookjob_h5redo " & _
+		        "@p_cJobNum ='" & left(TRIM(newjobnum),8) & "', " & _
+		        "@p_cbtid = '" & left(TRIM(BillToID),12) & "', " &_
+		        "@p_cpriority = '" & left(TRIM(Priority),2) & "', " & _
+		        "@p_cVertical = '" & left(TRIM(l_cIndustry),1) & "', " & _
+		        "@p_cstatus = '" & left(TRIM(l_cStatus),3) & "', " & _
+		        "@p_lroundtrip = " & CSTR(l_lRoundTrip) & ", " & _
+		        "@p_RetPri = '" & left(TRIM(l_cRetPri),2) & "', " & _
+		        "@p_cPUID = '" & left(TRIM(st_id),12) & "', " & _
+		        "@p_cPUCompany = '" & left(TRIM(Replace(Request.Form("txtPUCompany"),"'", "")),40) & "', " & _
+		        "@p_cPUContact = '" & left(TRIM(Replace(Request.Form("txtPUContact"),"'", "")),28) & "', " & _
+		        "@p_cPUPhone = '" & left(TRIM(Request.Form("txtPUPhone")),20) & "', " & _
+		        "@p_cPUAddr1 = '" & left(TRIM(Replace(fl_sf_addr1,"'", "")),40) & "', " & _
+		        "@p_cPUAddr2 = '" & left(TRIM(Replace(fl_sf_addr2,"'", "")),40) & "', " &_
+		        "@p_cPUCity = '" & left(TRIM(Replace(fl_sf_city,"'", "")),30) & "', " & _
+		        "@p_cPUState = '" & left(TRIM(fl_sf_state),3) & "', " &_
+		        "@p_cPUZip = '" & left(TRIM(Request.Form("txtPUZip")),10) & "', " & _
+		        "@p_cPUInstr = '" & Comments & "', " & _
+		        "@p_cPUEmail = '" & LEFT(TRIM(Request.Form("txtpuemail")),40) & "', " & _
+		        "@p_cDRID ='" & left(TRIM(Destination),12) & "', " & _
+		        "@p_cDRCompany = '" & left(TRIM(Replace(Request.Form("txtDRCompany"),"'", "")),40) & "', " & _
+		        "@p_cDRContact = '" & left(TRIM(Replace(Request.Form("txtDRContact"),"'", "")),28) & "', " & _
+		        "@p_cDRPhone = '" & left(TRIM(Request.Form("txtDRPhone")),20) & "', " & _
+		        "@p_cDRAddr1 = '" & left(TRIM(Replace(Request.Form("txtDRAddr1"),"'", "")),40) & "', " & _
+		        "@p_cDRAddr2 = '" & left(TRIM(Replace(Request.Form("txtDRAddr2"),"'", "")),40) & "', " &_
+		        "@p_cDRCity = '" & left(TRIM(Replace(Request.Form("txtDRCity"),"'", "")),30) & "', " & _
+		        "@p_cDRState = '" & left(TRIM(Request.Form("txtDRState")),3) & "', " &_
+		        "@p_cDRZip = '" & left(TRIM(Request.Form("txtDRZip")),10) & "', " & _
+		        "@p_cDRInstr = '" & left(TRIM(Replace(Request.Form("txtfl_st_comment"),"'", "")),100) & "', " & _
+		        "@p_cDREmail = '" & LEFT(TRIM(Request.Form("DestinationEmail")),40) & "', " & _
+		        "@p_tready = '" & ReadyTime & "', " & _
+		        "@p_tdue = '" & DueTime & "', " & _
+		        "@p_cReference = '" & left(TRIM(Replace(Request.Form("txtfh_custpo"),"'", "")),24) & "', " & _
+		        "@p_npieces = " & Pieces & ", " & _
+		        "@p_cPieceType = '" & left(TRIM(l_cPieceType),10) & "', " & _
+		        "@p_nweight = 0, " & _
+		        "@p_cTruckType = '" & left(TRIM(Request.Form("lstTruckType")),12) & "', " & _
+		        "@p_lUpBT=1, " & _
+		        "@p_lAddOnFly='1'," &_
+		        "@p_cFrmAirport = '" & left(TRIM(Request.Form("FrmAirport")),30) & "', " & _
+		        "@p_cAirline = '" & left(TRIM(Request.Form("Airline")),30) & "', " & _
+		        "@p_cFlight = '" & left(TRIM(Request.Form("Flight")),30) & "', " & _
+		        "@p_cToAirport = '" & left(TRIM(Request.Form("ToAirport")),30) & "', " & _
+		        "@p_cLabelToAirport = '" & TRIM(Request.Form("FlightTimelbl")) & "', " &_
+		        "@p_cNoFlightChk = '" & TRIM(Request.Form("NoFltChk")) & "', " &_
+		        "@p_cPaymentType = '" & Trim(Request.Form("PaymentType")) & "', " &_
+		        "@p_cCharter = '" & Trim(Request.Form("Charter"))  & "', " &_
+		        "@p_cFlightTime = '" & l_cFlightTime & "' , " &_
+		        "@p_cPUArea = '" & l_cPUArea & "', " &_
+		        "@p_cDRArea = '" & l_cDRArea & "', " &_	
+		        "@p_cCoId = '" & UserID & "', " &_
+		        "@p_cfhuser3 = '" & User3 & "', " & _		
+		        "@p_cfhuser5 = '" & materialtype & "'," & _	
+		        "@p_FinalDestination = '" & Destination & "'," & _	
+		        "@p_LegNumber = 1 "	
+		        'Response.Write "xxxl_cSQL="&l_cSQL&"<BR>"
+		        'Response.
+		        Set oRs = oConn.Execute(l_cSql)
+		       ''''''''''Response.Write "111<BR>"
+			end if
+			Do While not oRs69.EOF
+		        LegOrigin=oRs69("LegOrigin")
+		        LegDestination=oRs69("LegDestination")
+		        LegNumber=oRs69("LegNumber")
+		        NumberOfLegs=oRs69("NumberOfLegs")
+		       ' Response.Write "LegOrigin="&LegOrigin&"<BR>"
+		        'Response.Write "LegDestination="&LegDestination&"<BR>"
+		        'Response.Write "LegNumber="&LegNumber&"<BR>"
+		       ' Response.Write "NumberOfLegs="&NumberOfLegs&"<BR>"
+		         
+		         
+X7X=X7X+1
+If X7X=1 then
+            ''''''''''Response.Write "222<BR>"
+			'''''''''''''''''''''''''''''SEND DAVE MACHA AND TOMMY LYLES EMAIL ALERT'''''''''''''
+			'If trim(ResponsibleParty)="TI" or trim(ResponsibleParty)="TI Dallas" or trim(ResponsibleParty)="TI-Sherman" then
+
+		
+		If trim(st_id)="DNP" or trim(st_id)="CPGPSCOT" then		
+				Body = "RE:&nbsp;&nbsp; Job #&nbsp;&nbsp;"& NewJobNum &"<br><br>"   & _
+				"There has been an order sent from " & LegOrigin & " to " & Destination & ".<br><br>"   & _
+				"If you have any questions, please do not hesitate to contact me.<br><br>"   & _
+				"Thank you,<br><br>"   & _
+				"Mark Maggiore<br>"  & _
+				"LogistiCorp Web Developer<br>"  & _
+				"mark.maggiore@LogistiCorp.us<br>"  & _ 
+				"214/956-0400 xt 212<br><br>"
+				'Recipient=FirstName&" "&LastName
+				If Trim(Destination)="DLINR" OR Trim(Destination)="DFABR" then
+				    SentToEmail="mark.maggiore@logisticorp.us;2149080678@messaging.sprintpcs.com;t-lyles@ti.com"
+				    else
+				    SentToEmail="mark.maggiore@logisticorp.us;2149080678@messaging.sprintpcs.com;"
+				End if
+				'Email="KWETI.Mailbox@am.kwe.com"
+				'Email="mark@maggiore.net"
+				Set objMail = CreateObject("CDONTS.Newmail")
+				objMail.From = "System.Notification@logisticorp.us"
+				objMail.To = SentToEmail
+				'objMail.cc = "4692269939@tmomail.net;htmlmale@yahoo.com"
+				'objMail.cc = "4692269939@tmomail.net;pcurrin@ti.com"
+				objMail.Subject = "Job #"& NewJobNum & " sent via air"
+				objMail.MailFormat = cdoMailFormatMIME
+				objMail.BodyFormat = cdoBodyFormatHTML
+				objMail.Body = Body
+				objMail.Send
+				Set objMail = Nothing	
+		End if		
+		''''''''ADD FOR WHEN TI IS BILLED''''''''''''''''''
+		If trim(AuthorizedBy)>"" then
+			Set RSEVENTS2 = Server.CreateObject("ADODB.Recordset")
+				RSEVENTS2.Open "Courier_Authorization", DATABASE, 2, 2
+				RSEVENTS2.addnew
+				RSEVENTS2("fh_ID")=NewJobNum
+				RSEVENTS2("ResponsibleParty")=ResponsibleParty
+				RSEVENTS2("AuthorizedBy")=AuthorizedBy	
+				RSEVENTS2("Status")="c"								
+				RSEVENTS2.update
+				RSEVENTS2.close			
+			set RSEVENTS2 = nothing	
+			'''''''''''''''''''''''''''''SEND TI EMAIL ALERT'''''''''''''
+			'If trim(ResponsibleParty)="TI" or trim(ResponsibleParty)="TI Dallas" or trim(ResponsibleParty)="TI-Sherman" then
+				Body = "RE:&nbsp;&nbsp; Job #&nbsp;&nbsp;"& NewJobNum &"<br><br>"   & _
+				"There has been an order sent from " & LegOrigin & " to " & Destination & ".<br><br>"   & _
+				"It will be billed to: " & ResponsibleParty & "<br><br>"  & _
+				"It was authorized by: " & AuthorizedBy & "<br><br>"  & _
+				"If you have any questions, please do not hesitate to contact me.<br><br>"   & _
+				"Thank you,<br><br>"   & _
+				"Mark Maggiore<br>"  & _
+				"LogistiCorp Web Developer<br>"  & _
+				"mark.maggiore@LogistiCorp.us<br>"  & _ 
+				"214/956-0400 xt 212<br><br>"
+				'Recipient=FirstName&" "&LastName
+				SentToEmail="mark.maggiore@logisticorp.us;pcurrin@ti.com;c-durant@ti.com"
+				'Email="KWETI.Mailbox@am.kwe.com"
+				'Email="mark@maggiore.net"
+				Set objMail = CreateObject("CDONTS.Newmail")
+				objMail.From = "System.Notification@logisticorp.us"
+				objMail.To = SentToEmail
+				'objMail.cc = "4692269939@tmomail.net;htmlmale@yahoo.com"
+				'objMail.cc = "4692269939@tmomail.net;pcurrin@ti.com"
+				objMail.Subject = "Job #"& NewJobNum & " sent via " & shipmethod
+				objMail.MailFormat = cdoMailFormatMIME
+				objMail.BodyFormat = cdoBodyFormatHTML
+				objMail.Body = Body
+				objMail.Send
+				Set objMail = Nothing	
+			'End if			
+			'''''''''''''''''''''''''''''END SEND TI EMAIL ALERT'''''''''
+			'''''''''''''''''''''''''''''SEND DAVE MACHA AND TOMMY LYLES EMAIL ALERT'''''''''''''
+			'If trim(ResponsibleParty)="TI" or trim(ResponsibleParty)="TI Dallas" or trim(ResponsibleParty)="TI-Sherman" then
+
+		
+				
+				Body = "RE:&nbsp;&nbsp; Job #&nbsp;&nbsp;"& NewJobNum &"<br><br>"   & _
+				"There has been an order sent from " & LegOrigin & " to " & Destination & ".<br><br>"   & _
+				"If you have any questions, please do not hesitate to contact me.<br><br>"   & _
+				"Thank you,<br><br>"   & _
+				"Mark Maggiore<br>"  & _
+				"LogistiCorp Web Developer<br>"  & _
+				"mark.maggiore@LogistiCorp.us<br>"  & _ 
+				"214/956-0400 xt 212<br><br>"
+				'Recipient=FirstName&" "&LastName
+				If Trim(Destination)="DLINR" OR Trim(Destination)="DFABR" then
+				    SentToEmail="mark.maggiore@logisticorp.us;2149080678@messaging.sprintpcs.com;t-lyles@ti.com"
+				    else
+				    SentToEmail="mark.maggiore@logisticorp.us;2149080678@messaging.sprintpcs.com;"
+				End if
+				'Email="KWETI.Mailbox@am.kwe.com"
+				'Email="mark@maggiore.net"
+				Set objMail = CreateObject("CDONTS.Newmail")
+				objMail.From = "System.Notification@logisticorp.us"
+				objMail.To = SentToEmail
+				'objMail.cc = "4692269939@tmomail.net;htmlmale@yahoo.com"
+				'objMail.cc = "4692269939@tmomail.net;pcurrin@ti.com"
+				objMail.Subject = "Job #"& NewJobNum & " sent via " & shipmethod
+				objMail.MailFormat = cdoMailFormatMIME
+				objMail.BodyFormat = cdoBodyFormatHTML
+				objMail.Body = Body
+				objMail.Send
+				Set objMail = Nothing			
+			''''''''''''''''''''''''''''SEND ALERT TO NTCS'''''''''''''''''
+			'If ShipMethod="NTCS" AND trim(DisplayUserName)="TI-Sherman" and trim(Destination)="PHO" then
+			If ShipMethod="NTCS" AND trim(DisplayUserName)="TI-Sherman" then
+				Body = "RE:&nbsp;&nbsp; Job #&nbsp;&nbsp;"& NewJobNum &"<br><br>"   & _
+				"From: " & LegOrigin & " to " & Destination & ".<br><br>"   & _
+				"Ready to be picked up.<br><br>"  
+				'Recipient=FirstName&" "&LastName
+				SentToEmail="mark.maggiore@logisticorp.us;northtexascourier@hotmail.com;9032717026@mms.att.net"
+				'Email="KWETI.Mailbox@am.kwe.com"
+				'Email="mark@maggiore.net"
+				Set objMail = CreateObject("CDONTS.Newmail")
+				objMail.From = "System.Notification@logisticorp.us"
+				objMail.To = SentToEmail
+				'objMail.cc = "4692269939@tmomail.net;htmlmale@yahoo.com"
+				'objMail.cc = "4692269939@tmomail.net;pcurrin@ti.com"
+				objMail.Subject = "TI-Sherman Pick Up Ready"
+				objMail.MailFormat = cdoMailFormatMIME
+				objMail.BodyFormat = cdoBodyFormatHTML
+				objMail.Body = Body
+				objMail.Send
+				Set objMail = Nothing				
+			End If
+		End if		
+		''''''''END ADD FOR WHEN TI IS BILLED''''''''''''''	
+End if		         
+		         
+		         
+	LMNOP=LMNOP+1	         
+	''''If LMNOP=1 then	           
+	            '''''''''''''PLACES THE ACTUAL JOB WITH MULTILEGS''''''''''''''''''''''''''
+	            l_cSQL = "EXEC pr_bookjob_h5redo " & _
+	            "@p_cJobNum ='" & left(TRIM(newjobnum),8) & "', " & _
+	            "@p_cbtid = '" & left(TRIM(BillToID),12) & "', " &_
+	            "@p_cpriority = '" & left(TRIM(Priority),2) & "', " & _
+	            "@p_cVertical = '" & left(TRIM(l_cIndustry),1) & "', " & _
+	            "@p_cstatus = '" & left(TRIM(l_cStatus),3) & "', " & _
+	            "@p_lroundtrip = " & CSTR(l_lRoundTrip) & ", " & _
+	            "@p_RetPri = '" & left(TRIM(l_cRetPri),2) & "', " & _
+	            "@p_cPUID = '" & left(TRIM(LegOrigin),12) & "', " & _
+	            "@p_cPUCompany = '" & left(TRIM(Replace(Request.Form("txtPUCompany"),"'", "")),40) & "', " & _
+	            "@p_cPUContact = '" & left(TRIM(Replace(Request.Form("txtPUContact"),"'", "")),28) & "', " & _
+	            "@p_cPUPhone = '" & left(TRIM(Request.Form("txtPUPhone")),20) & "', " & _
+	            "@p_cPUAddr1 = '" & left(TRIM(Replace(fl_sf_addr1,"'", "")),40) & "', " & _
+	            "@p_cPUAddr2 = '" & left(TRIM(Replace(fl_sf_addr2,"'", "")),40) & "', " &_
+	            "@p_cPUCity = '" & left(TRIM(Replace(fl_sf_city,"'", "")),30) & "', " & _
+	            "@p_cPUState = '" & left(TRIM(fl_sf_state),3) & "', " &_
+	            "@p_cPUZip = '" & left(TRIM(Request.Form("txtPUZip")),10) & "', " & _
+	            "@p_cPUInstr = '" & Comments & "', " & _
+	            "@p_cPUEmail = '" & LEFT(TRIM(Request.Form("txtpuemail")),40) & "', " & _
+	            "@p_cDRID ='" & left(TRIM(LegDestination),12) & "', " & _
+	            "@p_cDRCompany = '" & left(TRIM(Replace(Request.Form("txtDRCompany"),"'", "")),40) & "', " & _
+	            "@p_cDRContact = '" & left(TRIM(Replace(Request.Form("txtDRContact"),"'", "")),28) & "', " & _
+	            "@p_cDRPhone = '" & left(TRIM(Request.Form("txtDRPhone")),20) & "', " & _
+	            "@p_cDRAddr1 = '" & left(TRIM(Replace(Request.Form("txtDRAddr1"),"'", "")),40) & "', " & _
+	            "@p_cDRAddr2 = '" & left(TRIM(Replace(Request.Form("txtDRAddr2"),"'", "")),40) & "', " &_
+	            "@p_cDRCity = '" & left(TRIM(Replace(Request.Form("txtDRCity"),"'", "")),30) & "', " & _
+	            "@p_cDRState = '" & left(TRIM(Request.Form("txtDRState")),3) & "', " &_
+	            "@p_cDRZip = '" & left(TRIM(Request.Form("txtDRZip")),10) & "', " & _
+	            "@p_cDRInstr = '" & left(TRIM(Replace(Request.Form("txtfl_st_comment"),"'", "")),100) & "', " & _
+	            "@p_cDREmail = '" & LEFT(TRIM(Request.Form("DestinationEmail")),40) & "', " & _
+	            "@p_tready = '" & ReadyTime & "', " & _
+	            "@p_tdue = '" & DueTime & "', " & _
+	            "@p_cReference = '" & left(TRIM(Replace(Request.Form("txtfh_custpo"),"'", "")),24) & "', " & _
+	            "@p_npieces = " & Pieces & ", " & _
+	            "@p_cPieceType = '" & left(TRIM(l_cPieceType),10) & "', " & _
+	            "@p_nweight = 0, " & _
+	            "@p_cTruckType = '" & left(TRIM(Request.Form("lstTruckType")),12) & "', " & _
+	            "@p_lUpBT=1, " & _
+	            "@p_lAddOnFly='1'," &_
+	            "@p_cFrmAirport = '" & left(TRIM(Request.Form("FrmAirport")),30) & "', " & _
+	            "@p_cAirline = '" & left(TRIM(Request.Form("Airline")),30) & "', " & _
+	            "@p_cFlight = '" & left(TRIM(Request.Form("Flight")),30) & "', " & _
+	            "@p_cToAirport = '" & left(TRIM(Request.Form("ToAirport")),30) & "', " & _
+	            "@p_cLabelToAirport = '" & TRIM(Request.Form("FlightTimelbl")) & "', " &_
+	            "@p_cNoFlightChk = '" & TRIM(Request.Form("NoFltChk")) & "', " &_
+	            "@p_cPaymentType = '" & Trim(Request.Form("PaymentType")) & "', " &_
+	            "@p_cCharter = '" & Trim(Request.Form("Charter"))  & "', " &_
+	            "@p_cFlightTime = '" & l_cFlightTime & "' , " &_
+	            "@p_cPUArea = '" & l_cPUArea & "', " &_
+	            "@p_cDRArea = '" & l_cDRArea & "', " &_	
+	            "@p_cCoId = '" & UserID & "', " &_
+	            "@p_cfhuser3 = '" & User3 & "', " & _		
+	            "@p_cfhuser5 = '" & materialtype & "'," & _	
+	            "@p_FinalDestination = '" & Destination & "'," & _
+	            "@p_LegNumber = " & LegNumber 
+	            ''''''''''Response.Write "444<BR>"
+	            'Response.Write "YYYl_cSQL = " & l_cSQL
+        		
+	            Set oRs = oConn.Execute(l_cSql)	
+	       '''' End if	        
+			XYZ=XYZ+1								
+			oRs69.movenext
+			LOOP
+		    		
+
+		Set oConn=Nothing
+		Set oRs=Nothing
+		Set oConn69=Nothing	
+		Set oRs69=Nothing
+		
+		
+		
+
+		For addrefs=1 to pieces
+			Set oConn = Server.CreateObject("ADODB.Connection")
+			oConn.ConnectionTimeout = 100
+			oConn.Provider = "MSDASQL"
+			oConn.Open DATABASE		
+				l_nPkey = m_GetPkey(oConn, 1)
+			Set oConn=Nothing
+			
+			Select Case Addrefs
+				Case 1
+					ReticleNumber=ReticleNumber1
+				Case 2
+					ReticleNumber=ReticleNumber2
+				Case 3
+					ReticleNumber=ReticleNumber3
+				Case 4
+					ReticleNumber=ReticleNumber4
+				Case 5
+					ReticleNumber=ReticleNumber5
+				Case 6
+					ReticleNumber=ReticleNumber6
+				Case 7
+					ReticleNumber=ReticleNumber7
+				Case 8
+					ReticleNumber=ReticleNumber8
+				Case 9
+					ReticleNumber=ReticleNumber9
+				Case 10
+					ReticleNumber=ReticleNumber10
+				Case 11
+					ReticleNumber=ReticleNumber11
+				Case 12
+					ReticleNumber=ReticleNumber12
+				Case 13
+					ReticleNumber=ReticleNumber13
+				Case 14
+					ReticleNumber=ReticleNumber14
+				Case 15
+					ReticleNumber=ReticleNumber15
+				Case 16
+					ReticleNumber=ReticleNumber16
+				Case 17
+					ReticleNumber=ReticleNumber17
+				Case 18
+					ReticleNumber=ReticleNumber18
+				Case 19
+					ReticleNumber=ReticleNumber19
+				Case 20
+					ReticleNumber=ReticleNumber20
+				Case 21
+					ReticleNumber=ReticleNumber21
+				Case 22
+					ReticleNumber=ReticleNumber22
+				Case 23
+					ReticleNumber=ReticleNumber23
+				Case 24
+					ReticleNumber=ReticleNumber24
+				Case 25
+					ReticleNumber=ReticleNumber25
+				Case 26
+					ReticleNumber=ReticleNumber26
+				Case 27
+					ReticleNumber=ReticleNumber27
+				Case 28
+					ReticleNumber=ReticleNumber28
+				Case 29
+					ReticleNumber=ReticleNumber29
+				Case 30
+					ReticleNumber=ReticleNumber30
+				Case 31
+					ReticleNumber=ReticleNumber31
+				Case 32
+					ReticleNumber=ReticleNumber32
+				Case 33
+					ReticleNumber=ReticleNumber33
+				Case 34
+					ReticleNumber=ReticleNumber34
+				Case 35
+					ReticleNumber=ReticleNumber35
+				Case 36
+					ReticleNumber=ReticleNumber36
+				Case 37
+					ReticleNumber=ReticleNumber37
+				Case 38
+					ReticleNumber=ReticleNumber38
+				Case 39
+					ReticleNumber=ReticleNumber39
+				Case 40
+					ReticleNumber=ReticleNumber40
+				Case 41
+					ReticleNumber=ReticleNumber41
+				Case 42
+					ReticleNumber=ReticleNumber42
+				Case 43
+					ReticleNumber=ReticleNumber43
+				Case 44
+					ReticleNumber=ReticleNumber44
+				Case 45
+					ReticleNumber=ReticleNumber45
+				Case 46
+					ReticleNumber=ReticleNumber46
+				Case 47
+					ReticleNumber=ReticleNumber47
+				Case 48
+					ReticleNumber=ReticleNumber48
+				Case 49
+					ReticleNumber=ReticleNumber49
+				Case 50
+					ReticleNumber=ReticleNumber50
+																			
+			End Select
+			'Response.write "l_nPkey="&l_nPkey&"<BR>"	
+			'Response.write "NewJobNum="&NewJobNum&"<BR>"
+			'Response.write "ReticleNumber="&ReticleNumber&"<BR>"	
+			If Trim(ReticleNumber)>"" then																		
+				Set RSEVENTS2 = Server.CreateObject("ADODB.Recordset")
+					RSEVENTS2.Open "FCRefs", DATABASE, 2, 2
+					RSEVENTS2.addnew
+					RSEVENTS2("rf_Pkey")=l_nPkey
+					RSEVENTS2("rf_fh_ID")=NewJobNum
+					RSEVENTS2("rf_ref")=ReticleNumber
+					RSEVENTS2("rf_box")=BoxID
+					If ShipMethod="bus" or ShipMethod="air" or ShipMethod="drive" then
+					    'response.write "Got here 1<BR>"
+						RSEVENTS2("ref_status")="o"
+					End if									
+					RSEVENTS2.update
+					RSEVENTS2.close			
+				set RSEVENTS2 = nothing	
+			End if
+			
+		next
+		'Response.Write "ShipMethod="&ShipMethod&"<BR>"
+		Select Case ShipMethod
+			Case "bus"
+			'response.write "Got here 2<BR>"
+				QuickOrNot="GI-DAL"
+				fh_type="G"
+				BoomiVar="G"
+				UpdateShipMethod="GI-DAL"
+			Case "air"
+			'response.write "Got here 3<BR>"
+				QuickOrNot="SA-DAL"
+				fh_type="A"
+				BoomiVar="NF"
+				UpdateShipMethod="NA"
+			Case "drive"
+			''response.write "Got here 4<BR>"
+				QuickOrNot="DRIVE"
+				fh_type="D"
+				BoomiVar="D"
+				UpdateShipMethod="NA"
+			Case "NTCS"
+			''response.write "Got here 5<BR>"
+				QuickOrNot="NTCS"
+				fh_type="X"
+				'BoomiVar="X"
+				UpdateShipMethod="NA"							
+			Case "fleet"
+			'response.write "Got here 6<BR>"
+				QuickOrNot=""
+				fh_type="F"
+				UpdateShipMethod="NA"			
+		End Select
+		'''Select Case ShipMethod
+        If BoomiVar>"" then
+			'''Case "air", "bus"
+			'response.write "XXX Got here 5 XXX<BR>"
+			Set oConn = Server.CreateObject("ADODB.Connection")
+			oConn.ConnectionTimeout = 100
+			oConn.Provider = "MSDASQL"
+			oConn.Open DATABASE	
+			    'response.write "XXX Got here 6 XXX<BR>"
+				If ShipMethod="air" or ShipMethod="bus" or ShipMethod="drive" or ShipMethod="NTCS"	then
+					
+					
+	            l_cSQL = "EXEC pr_BOOMICOURIERNOTIFICATION " & _
+	            "@p_cJobNum ='" & left(TRIM(newjobnum),8) & "', " & _
+	            "@p_cbtid = '" & left(TRIM(BillToID),12) & "', " &_
+	            "@p_cpriority = '" & left(TRIM(Priority),2) & "', " & _
+	            "@p_cVertical = '" & left(TRIM(l_cIndustry),1) & "', " & _
+	            "@p_cstatus = '" & left(TRIM(l_cStatus),3) & "', " & _
+	            "@p_lroundtrip = " & BoomiVar & ", " & _
+	            "@p_RetPri = '" & left(TRIM(l_cRetPri),2) & "', " & _
+	            "@p_cPUID = '" & left(TRIM(st_id),12) & "', " & _
+	            "@p_cPUCompany = '" & left(TRIM(Replace(Request.Form("txtPUCompany"),"'", "")),40) & "', " & _
+	            "@p_cPUContact = '" & left(TRIM(Replace(Request.Form("txtPUContact"),"'", "")),28) & "', " & _
+	            "@p_cPUPhone = '" & left(TRIM(Request.Form("txtPUPhone")),20) & "', " & _
+	            "@p_cPUAddr1 = '" & left(TRIM(Replace(fl_sf_addr1,"'", "")),40) & "', " & _
+	            "@p_cPUAddr2 = '" & left(TRIM(Replace(fl_sf_addr2,"'", "")),40) & "', " &_
+	            "@p_cPUCity = '" & left(TRIM(Replace(fl_sf_city,"'", "")),30) & "', " & _
+	            "@p_cPUState = '" & left(TRIM(fl_sf_state),3) & "', " &_
+	            "@p_cPUZip = '" & left(TRIM(Request.Form("txtPUZip")),10) & "', " & _
+	            "@p_cPUInstr = '" & Comments & "', " & _
+	            "@p_cPUEmail = '" & LEFT(TRIM(Request.Form("txtpuemail")),40) & "', " & _
+	            "@p_cDRID ='" & left(TRIM(LegDestination),12) & "', " & _
+	            "@p_cDRCompany = '" & left(TRIM(Replace(Request.Form("txtDRCompany"),"'", "")),40) & "', " & _
+	            "@p_cDRContact = '" & left(TRIM(Replace(Request.Form("txtDRContact"),"'", "")),28) & "', " & _
+	            "@p_cDRPhone = '" & left(TRIM(Request.Form("txtDRPhone")),20) & "', " & _
+	            "@p_cDRAddr1 = '" & left(TRIM(Replace(Request.Form("txtDRAddr1"),"'", "")),40) & "', " & _
+	            "@p_cDRAddr2 = '" & left(TRIM(Replace(Request.Form("txtDRAddr2"),"'", "")),40) & "', " &_
+	            "@p_cDRCity = '" & left(TRIM(Replace(Request.Form("txtDRCity"),"'", "")),30) & "', " & _
+	            "@p_cDRState = '" & left(TRIM(Request.Form("txtDRState")),3) & "', " &_
+	            "@p_cDRZip = '" & left(TRIM(Request.Form("txtDRZip")),10) & "', " & _
+	            "@p_cDRInstr = '" & left(TRIM(Replace(Request.Form("txtfl_st_comment"),"'", "")),100) & "', " & _
+	            "@p_cDREmail = '" & LEFT(TRIM(Request.Form("DestinationEmail")),40) & "', " & _
+	            "@p_tready = '" & ReadyTime & "', " & _
+	            "@p_tdue = '" & DueTime & "', " & _
+	            "@p_cReference = '" & left(TRIM(Replace(Request.Form("txtfh_custpo"),"'", "")),24) & "', " & _
+	            "@p_npieces = " & Pieces & ", " & _
+	            "@p_cPieceType = '" & left(TRIM(l_cPieceType),10) & "', " & _
+	            "@p_nweight = 0, " & _
+	            "@p_cTruckType = '" & left(TRIM(Request.Form("lstTruckType")),12) & "', " & _
+	            "@p_lUpBT=1, " & _
+	            "@p_lAddOnFly='1'," &_
+	            "@p_cFrmAirport = '" & left(TRIM(Request.Form("FrmAirport")),30) & "', " & _
+	            "@p_cAirline = '" & left(TRIM(Request.Form("Airline")),30) & "', " & _
+	            "@p_cFlight = '" & left(TRIM(Request.Form("Flight")),30) & "', " & _
+	            "@p_cToAirport = '" & left(TRIM(Request.Form("ToAirport")),30) & "', " & _
+	            "@p_cLabelToAirport = '" & TRIM(Request.Form("FlightTimelbl")) & "', " &_
+	            "@p_cNoFlightChk = '" & TRIM(Request.Form("NoFltChk")) & "', " &_
+	            "@p_cPaymentType = '" & Trim(Request.Form("PaymentType")) & "', " &_
+	            "@p_cCharter = '" & Trim(Request.Form("Charter"))  & "', " &_
+	            "@p_cFlightTime = '" & l_cFlightTime & "' , " &_
+	            "@p_cPUArea = '" & l_cPUArea & "', " &_
+	            "@p_cDRArea = '" & l_cDRArea & "', " &_	
+	            "@p_cCoId = '" & UserID & "', " &_
+	            "@p_cfhuser3 = '" & User3 & "', " & _		
+	            "@p_cfhuser5 = '" & materialtype & "'," & _	
+	            "@p_FinalDestination = '" & Destination & "'," & _
+	            "@p_LegNumber = " & LegNumber 
+                Set oRs = oConn.Execute(l_cSql)	
+                Response.Write "YYYl_cSQL = " & l_cSQL	            
+	     End if
+	            ''''''''''Response.Write "444<BR>"
+	            'Response.Write "YYYl_cSQL = " & l_cSQL
+        		
+	            					
+		        '''Case "air", "bus"
+		        Set oConn = Server.CreateObject("ADODB.Connection")
+		        oConn.ConnectionTimeout = 100
+		        oConn.Provider = "MSDASQL"
+		        oConn.Open DATABASE	
+				If ShipMethod="air" or ShipMethod="bus" or ShipMethod="drive" or ShipMethod="NTCS"	then					
+					'response.write "XXX Got here 7 XXX<BR>"
+					SQL234="PR_Dispatch_Compugraphics '3', 'OPN', 'MANUAL', '" & NewJobNum & "'" 	
+					oConn.Execute(SQL234) 
+					Else
+					Select Case lWelcomeName
+						Case "photronics"
+						'response.write "Got here 8<BR>"
+							SQL234="PR_Dispatch_LogistiCorp_PHO '3', 'OPN', 'MANUAL', '" & NewJobNum & "'" 
+							oConn.Execute(SQL234)						
+						Case "ti-sherman"
+						'response.write "Got here 9<BR>"
+							SQL234="PR_Dispatch_LogistiCorp_TISHERMAN '3', 'OPN', 'MANUAL', '" & NewJobNum & "'" 
+							oConn.Execute(SQL234)						
+						Case else
+						'response.write "Got here 10<BR>"
+							'SQL234="PR_Dispatch_LogistiCorp '3', 'OPN', 'MANUAL', '" & NewJobNum & "'" 
+							SQL234="PR_Dispatch_DedicatedFleet '3', 'OPN', 'MANUAL', '" & NewJobNum & "'" 
+							
+							Response.Write "SQL234="&SQL234&"<BR>"
+							
+							oConn.Execute(SQL234)
+						
+					End Select
+				End if
+				
+				'response.write "SQL234="&SQL234&"***<BR>"
+				'Response.Write "QuickOrNot="&QuickOrNot&"***<BR>"
+				
+				l_sql="PR_NextID 'sy_air', '1'" 
+				Set oRs2=oConn.Execute(l_sql) 
+				nextnumber = oRs2.Fields("sv_val")
+				if trim(ETA)="" then ETA=now()	
+				Set RSEVENTS2 = Server.CreateObject("ADODB.Recordset")
+					RSEVENTS2.Open "FCAirleg", DATABASE, 2, 2
+					RSEVENTS2.addnew
+					RSEVENTS2("al_pkey")=nextnumber
+					RSEVENTS2("al_lt_pkey")="2"
+					RSEVENTS2("al_ca_id")=QuickOrNot
+					RSEVENTS2("al_fh_id")=NewJobNum	
+					RSEVENTS2("al_st_ohd")=ETA	
+					RSEVENTS2("al_trackno")=" "
+					RSEVENTS2("al_rate")="1"
+					RSEVENTS2.update
+					RSEVENTS2.close			
+				set RSEVENTS2 = nothing
+				'response.write "lwelcomename="&lwelcomename&"<BR>"
+				lwelcomename=trim(lcase(WelcomeName))
+				
+				
+				
+
+				Body = "RE:&nbsp;&nbsp; st_id =&nbsp;&nbsp;"& st_id &"***<br><br>"   & _
+				"From: " & st_id & " to " & Destination & ".<br><br>"   & _
+				"Ready to be picked up.<br><br>"  
+				'Recipient=FirstName&" "&LastName
+				SentToEmail="mark.maggiore@logisticorp.us"
+				'Email="KWETI.Mailbox@am.kwe.com"
+				'Email="mark@maggiore.net"
+				Set objMail = CreateObject("CDONTS.Newmail")
+				objMail.From = "System.Notification@logisticorp.us"
+				objMail.To = SentToEmail
+				'objMail.cc = "4692269939@tmomail.net;htmlmale@yahoo.com"
+				'objMail.cc = "4692269939@tmomail.net;pcurrin@ti.com"
+				objMail.Subject = "BUG TESTING!"
+				objMail.MailFormat = cdoMailFormatMIME
+				objMail.BodyFormat = cdoBodyFormatHTML
+				objMail.Body = Body
+				'objMail.Send
+				Set objMail = Nothing				
+				
+				
+				
+				st_id=Trim(st_id)
+				
+				Select Case st_id
+					Case "TOPPAN"
+					
+					
+				Body = "RE:&nbsp;&nbsp; fh_type =&nbsp;&nbsp;"& fh_type &"***<br><br>"   & _
+				"NewJobNum: " & NewJobNum & " QuickOrNot " & QuickOrNot & ".<br><br>"   & _
+				"Ready to be picked up.<br><br>"  
+				'Recipient=FirstName&" "&LastName
+				SentToEmail="mark.maggiore@logisticorp.us"
+				'Email="KWETI.Mailbox@am.kwe.com"
+				'Email="mark@maggiore.net"
+				Set objMail = CreateObject("CDONTS.Newmail")
+				objMail.From = "System.Notification@logisticorp.us"
+				objMail.To = SentToEmail
+				'objMail.cc = "4692269939@tmomail.net;htmlmale@yahoo.com"
+				'objMail.cc = "4692269939@tmomail.net;pcurrin@ti.com"
+				objMail.Subject = "GOT TO WHERE IT SHOULD!"
+				objMail.MailFormat = cdoMailFormatMIME
+				objMail.BodyFormat = cdoBodyFormatHTML
+				objMail.Body = Body
+				'objMail.Send
+				Set objMail = Nothing	
+				
+				'''''''''''REMOVE ONCE BOOMI IS FIXED!!!!!!!!!!
+					'''fh_type="F"	
+				''''''''''''''''''''''''''''''''''''''''''''''''''		
+					'response.write "Got here 11<BR>"	
+					SQL235="Mark_SetCourierTopan '"& NewJobNum &"', '"& QuickOrNot &"', '" & fh_type & "'" 
+					Case "PHO"
+				'''''''''''REMOVE ONCE BOOMI IS FIXED!!!!!!!!!!
+					'''fh_type="F"	
+				''''''''''''''''''''''''''''''''''''''''''''''''''					
+					'response.write "Got here 12<BR>"	
+					SQL235="Mark_SetCourierPhotronics '"& NewJobNum &"', '"& QuickOrNot &"', '" & fh_type & "'"
+					Case "CPGP"
+				'''''''''''REMOVE ONCE BOOMI IS FIXED!!!!!!!!!!
+					'''fh_type="F"	
+				''''''''''''''''''''''''''''''''''''''''''''''''''					
+					'response.write "Got here 13<BR>"
+					SQL235="Mark_SetCourierCPGP '"& NewJobNum &"', '"& QuickOrNot &"', '" & fh_type & "'" 
+				
+				
+				End Select
+				'Response.Write "<br><BR>XXXXXXXXXXSQL235="&SQL235&"<BR>"
+				If trim(SQL235)>"" then
+				    oConn.Execute SQL235
+				End if
+				''response.write "SQL235="&SQL235&"<BR>"
+				oConn.Close	
+				Set oConn=Nothing
+			'''Case else
+					
+		'''End Select
+		
+		
+		
+		If St_ID="TOPPAN" OR Destination="TOPPAN" or st_id="55" or st_ID="PHO" or st_id="TISHERMANRET" then
+			'response.write "Got here 14<BR>"
+			Response.Redirect("../include/ifabfnlrecapTopan.asp?l_cJobNum=" & newjobnum & " ")
+			'Response.Write "Got here YES>>>Topan<br>"
+			'Response.Write "st_id="&st_id&"<BR>"
+			'Response.Write "Destination="&Destination&"<BR>"
+			else
+			'response.write "Got here 15<BR>"
+			Response.Redirect("../include/ifabfnlrecap.asp?l_cJobNum=" & newjobnum & " ")
+			'Response.Write "Got here NO<<<NOT Topan<br>"
+			'Response.Write "st_id="&st_id&"<BR>"
+			'Response.Write "Destination="&Destination&"<BR>"
+		End if
+		'response.write "St_ID="&St_ID&"<BR>"	
+		'response.write "Destination="&Destination&"<BR>"				
+
+End if
+'Response.Write "BillToID="&BillToID&"<BR>"
+'Response.Write "OtherDisplayUserName="&OtherDisplayUserName&"<BR>"
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+preLocationAlias=trim(Request.Form("preLocationAlias"))
+'''Response.Write "preLocationAlias="&preLocationAlias&"***<BR>"
+'''''''''''''''FINDS THE LOCATION COOKIE CODE ETC. DURING LOGIN''''''''''''''''''
+If trim(preLocationAlias)>"" AND st_id="" then
+	'Response.Write "GOT HERE 2222<BR>"
+	Set oConn = Server.CreateObject("ADODB.Connection")
+	oConn.ConnectionTimeout = 100
+	oConn.Provider = "MSDASQL"
+	oConn.Open DATABASE
+		'l_cSQL = "select st_id, fl_sf_addr1, fl_sf_addr2, fl_sf_city, fl_sf_state from fcshipto  " &_
+		l_cSQL = "select st_id from VW_Mark_ShipToInfo  " &_
+					"WHERE st_alias = '" & TRIM(PreLocationAlias)&"' AND sb_bt_id='"& Trim(BillToID) &"'" 
+		
+		'Response.write "l_cSQL="&l_cSQL&"<BR>"
+		
+		SET oRs = oConn.Execute(l_cSql)
+		IF not oRs.EOF then	
+			'Response.Write "preLocationAlias="&preLocationAlias&"<BR>"
+			'fl_sf_addr1=oRs("fl_sf_addr1")
+			'fl_sf_addr2=oRs("fl_sf_addr2")
+			'fl_sf_city=oRs("fl_sf_city")
+			'fl_sf_state=oRs("fl_sf_state")
+			st_id=oRs("st_id")
+			
+			'Response.write "XXXXst_id="&st_id&"<BR>"
+			
+			If ResetCookie<>"y" then
+			Response.Cookies(DisplayBillToID).Expires = Date() + 3500
+			Response.Cookies(DisplayBillToID)("LocationAlias")=preLocationAlias	
+			'Response.Write "SET THE COOKIE<BR>"
+			end if
+			else
+			ErrorMessage="Error:  That location code does not match any existing location codes."
+			
+			'Response.Write "ErrorMessage="&ErrorMessage&"<BR>"
+					
+		End if
+	Set oConn=Nothing
+End if	
+If ErrorMessage="" then
+    'Response.Write "GOT HERE 3<BR>"
+    If trim(displaybilltoID)="" then 
+        Response.Redirect("https://www.logisticorp.us/intranet")
+    End if
+	If ResetCookie<>"y" then
+	    PreLocationAlias=Request.Cookies(DisplayBillToID)("LocationAlias")
+	    If Trim(PreLocationAlias)="" then
+		    PreLocationAlias=Request.Cookies("Location_Logisticorp")("LocationAlias")
+		End if
+		'Response.Write "***PreLocationAlias="&PreLocationAlias&"*****<BR>"
+	end if
+	'Response.write "***PreLocationAlias="&PreLocationAlias&"*****<BR>"
+	''''If PreLocationAlias<>"TOPPAN123" AND PreLocationAlias<>"CPGP55" AND PreLocationAlias<>"XPHOTR" AND PreLocationAlias<>"PHOTOP" AND PreLocationAlias<>"SUREMAN64" then PreLocationAlias=""
+	If Trim(PrelocationAlias)="" then PrelocationAlias="666"
+	Set oConn = Server.CreateObject("ADODB.Connection")
+	oConn.ConnectionTimeout = 100
+	oConn.Provider = "MSDASQL"
+	oConn.Open DATABASE
+		l_cSQL = "select st_alias, st_id, st_addr1, st_addr2 from  fcshipto INNER JOIN fcshipbt ON fcshipto.st_id = fcshipbt.sb_st_id  " &_
+		"WHERE st_alias = '" & TRIM(PreLocationAlias)&"' AND (sb_bt_id='"&DisplayBillToID&"')" 
+		'Response.write "l_cSQL="&l_cSQL&"<BR>"
+		SET oRs = oConn.Execute(l_cSql)
+		IF not oRs.EOF then	
+			LocationAlias=oRs("st_alias")
+			st_addr1=oRs("st_addr1")
+			st_id=trim(oRs("st_id"))
+			'''''if st_id="CPGP" then
+			'''''	st_addr1=oRs("st_addr2")
+			'''''End if
+			'Response.Cookies("Location_Logisticorp").Expires = Date() + 3500
+			'Response.Cookies("Location_Logisticorp")("LocationAlias")=preLocationAlias	
+			else
+			LocationAlias=""
+			ErrorMessage=""		
+		End if
+	Set oConn=Nothing
+End if	
+if LocationAlias>"" then
+	'''Response.Write "got here 111<br>"
+	If PageStatus="" then
+		'''Response.Write "got here 222111<br>"
+		PageStatus="OrderForm1"
+	End if
+	PrelocationAlias=Trim(LocationAlias)
+End if
+'response.Write "QQQQst_id="&st_id&"<BR>"
+'PageStatus="TimeOut"
+'''Response.Write "LocationAlias="&LocationAlias&"****<BR>"
+'''Response.Write "PageStatus="&PageStatus&"****<BR>"
+'''Response.Write "PreLocationAlias="&PreLocationAlias&"****<BR>"
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+%>
+</head>
+<%
+Select Case PageStatus
+	Case "TimeOut"
+		%>
+		<script language="JavaScript">
+			open("../../intranet/default.asp","_top")
+		</script> 
+		<%
+	Case "OrderForm1"
+	%>
+<BODY leftMargin="0" TOPMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0" OnLoad=document.OrderForm1.<%=HighlightedField%>.focus()>
+<!-- #include file="../nav/ifabnavbar.inc" -->
+<FORM method="post" name="OrderForm1" ID="OrderForm1">
+<table cellpadding="0" cellspacing="0" ID="Table1" width="100%" bordercolor="blue" border="0">
+	<tr>
+		<td width="20">&nbsp;</td>
+		<td>
+			<table width="100%" cellpadding="0" cellspacing="0" bordercolor="red" border="0" ID="Table2">
+				<%
+				'DisplayUserName=trim(Session("sUsername"))
+				'Response.Write "DisplayUserName="&DisplayUserName&"<BR>"
+				'if DisplayUserName="comps" then%>
+					<tr><td valign="top"><a href="TopanDefault.asp"><img src="../images/<%=DisplayUserName%>.jpg" height="<%=DisplayHeight%>" width="<%=DisplayWidth%>" border="0"></td><td><img src="images/pixel.gif" width="1" height="1"></a></td></tr>
+				<%'end if%>
+				<tr><td align="center" nowrap colspan="2" class="pagetitle">Order Entry</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td class="MainPageTextBold" nowrap valign="top">Origination: </td>
+					<td width="95%">
+						<%
+						'Response.Write "DisplayBillToID="&DisplayBillToID&"<BR>"
+						LocationAlias=Request.Cookies(DisplayBillToID)("LocationAlias")
+						'Response.Write "1111LocationAlias="&LocationAlias&"<BR>"
+						If trim(LocationAlias)="" THEN
+						    LocationAlias=Request.Cookies("Location_Logisticorp")("LocationAlias")
+						End if
+						'Response.Write "2222LocationAlias="&LocationAlias&"<BR>"
+						
+							Set oConn = Server.CreateObject("ADODB.Connection")
+							oConn.ConnectionTimeout = 100
+							oConn.Provider = "MSDASQL"
+							oConn.Open DATABASE
+								l_cSQL2 = "select st_id, st_name, st_addr1 from fcshipto  " &_
+										"WHERE st_alias = '" & TRIM(LocationAlias)&"'" 
+										if trim(displayusername)="comps" or trim(displayusername)="Compugraphics"  then 
+										l_cSQL2 = l_cSQL2 & "  AND st_id<>'CPGP'" 
+										end if
+								'Response.Write "l_cSQL2="&l_cSQL2&"<BR>"
+								SET oRs = oConn.Execute(l_cSql2)
+								Do While not oRs.EOF
+								st_addr1=oRs("st_addr1")
+								st_id=oRs("st_id")
+								st_name=oRs("st_name")
+								XYZ=XYZ+1								
+								oRs.movenext
+								LOOP
+							Set oConn=Nothing
+							'Response.Write "XYZ="&XYZ&"<BR>"
+							'Response.Write "BillToID="&BillToID&"<BR>"
+							If XYZ=1 AND Trim(BillToID)<>"48" then
+							%>							
+								<input type="hidden" name="st_id" value="<%=st_id%>" ID="Hidden3">
+								<%
+								Response.Write(st_name)
+								ELSE
+								'response.Write "QQQQst_id="&st_id&"<BR>"
+								%>
+								<select name="st_id" ID="Select3">
+								<%
+									Set oConn = Server.CreateObject("ADODB.Connection")
+									oConn.ConnectionTimeout = 100
+									oConn.Provider = "MSDASQL"
+									oConn.Open DATABASE
+										l_cSQL = "SELECT DISTINCT fcshipto.st_id, fcshipto.st_addr1, st_name FROM fcshipto INNER JOIN fcshipbt ON fcshipto.st_id = fcshipbt.sb_st_id "
+										l_cSQL=l_cSQL& " WHERE (sb_bt_id='"&Trim(Session("suid"))&"') AND" 
+										If BillToID="48" then
+											l_cSQL=l_cSQL& "  (fcshipto.st_priapt = 'DFW') ORDER BY st_name"
+											Else
+											l_cSQL=l_cSQL& "  (fcshipto.st_alias = '"&TRIM(LocationAlias)&"') "
+										End if
+										SET oRs = oConn.Execute(l_cSql)
+												Do While not oRs.EOF
+												st_name=oRs("st_name")
+												st_addr1=oRs("st_addr1")
+												st_id=oRs("st_id")								
+											%>
+											<option value="<%=st_id%>" <%if Session("st_idSession")=st_id then response.Write " selected" end if%>><%=st_name%></option>
+											<%
+										oRs.movenext
+										LOOP
+									Set oConn=Nothing									
+									%>
+								</select>
+								<%
+							End if
+							'response.Write "l_csql2="&l_csql2&"<BR>"
+							'response.Write "displayusername="&displayusername&"<BR>"	
+					        'response.Write "st_id="&st_id&"<BR>"	
+							%>						
+					</td>
+				</tr>				
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td class="MainPageTextBold" nowrap>Employee ID:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td width="95%">
+						<input maxlength="25" size="25" name="UserID" class="inputgeneral" value="<%=UserID%>" ID="Text1" onKeyPress="return disableEnterKey(event)">
+					    <input type="hidden" name="LocationAlias" value="<%=LocationAlias %>" />
+					</td>
+				</tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td align="left" nowrap colspan="2" class="MainPageTextBold">Material Type</td></tr>
+				<tr><td><img src="images/pixel.gif" height="10" width="1"></td></tr>
+				<tr>
+					<td align="left" nowrap colspan="2">
+						<table width="100%" cellpadding="0" cellspacing="0" bordercolor="purple" border="0" ID="Table3">
+							<tr>
+								<td width="20">&nbsp;</td>
+								<td>
+									<select name="MaterialType" ID="Select1">
+										<%
+										Set Recordset1 = Server.CreateObject("ADODB.Recordset")
+										Recordset1.ActiveConnection = DATABASE
+										SQL666="SELECT ab_vchar AS MaterialType FROM addlbillto WHERE (ab_btid = '"& BillToID &"') AND (ab_type = 'fh_user5val')"
+										Recordset1.Source = SQL666
+										
+										'Response.write "Recordset1.Source="&Recordset1.Source&"<BR>"
+										
+										Recordset1.CursorType = 0
+										Recordset1.CursorLocation = 2
+										Recordset1.LockType = 1
+										Recordset1.Open()
+										Recordset1_numRows = 0
+										If Recordset1.EOF then
+											%>
+											<option value="">No Available Material Types</option>
+											<%
+										End if				
+										Do While Not Recordset1.EOF 
+											MaterialType=Recordset1("MaterialType")
+											%>
+											<option value="<%=MaterialType%>"><%=MaterialType%></option>
+											<%
+										Recordset1.movenext
+										Loop
+										Recordset1.Close
+										Set Recordset1=Nothing	
+								
+										If trim(st_id)="EBTW1" OR trim(st_id)="SCTQC" OR trim(st_id)="EBTSH" OR trim(st_id)="CSSF" OR trim(st_id)="SCTA1" OR trim(st_id)="EBTLOTSTART" then									
+											Response.Write("<OPTION " & _
+												"value='ITAR' "& ITARSELECTED &">ITAR</OPTION>")										
+										End if										
+										%>
+									</select>
+									<%
+									'Response.Write "SQL666="&SQL666&"<BR>"
+									%>
+								</td>
+								<!--OTHER as a material type...currently NOT available...can be added later IF we actually need it
+								<td nowrap align="right">Other Description (Optional-Up to 10 Characters):</td>
+								<td width="50%"><input type="text" value="<%=MaterialTypeDescription%>" name="MaterialTypeDescription" size="10" maxlength="10"></td>
+								-->
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<%If trim(st_id)="SFABQC" then %>
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td class="MainPageTextBold" nowrap>Scan Cart ID:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td width="95%">
+						<input maxlength="25" size="25" name="BoxID" class="inputgeneral" value="<%=BoxID%>" ID="Text8" onKeyPress="return disableEnterKey(event)">
+					</td>
+				</tr>
+				<%end if %>
+				
+				<tr><td>&nbsp;</td></tr>
+				<tr><td align="left" nowrap colspan="2" class="MainPageTextBold">Scan Lot Numbers</td></tr>
+				<tr><td align="left" nowrap colspan="2" class="MainPageTextBold">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NOTE:  All lots must be going to only ONE destination per order</td></tr>
+				<tr><td><img src="images/pixel.gif" height="10" width="1"></td></tr>
+				<tr>
+					<td align="left" nowrap colspan="2">
+						<table cellpadding="0" cellspacing="0" bordercolor="green" border="0" ID="Table4">
+							<tr>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber1" value="<%=ReticleNumber1%>" maxlength="14" ID="Text2" onKeyPress="return disableEnterKey(event)">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber2" value="<%=ReticleNumber2%>" maxlength="14" ID="Text3" onKeyPress="return disableEnterKey(event)">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber3" value="<%=ReticleNumber3%>" maxlength="14" ID="Text4" onKeyPress="return disableEnterKey(event)">
+								</td>
+							</tr>
+							<tr><td><img src="images/pixel.gif" height="10" width="1"></td></tr>
+							<tr>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber4" value="<%=ReticleNumber4%>" maxlength="14" ID="Text5" onKeyPress="return disableEnterKey(event)">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber5" value="<%=ReticleNumber5%>" maxlength="14" ID="Text6" onKeyPress="return disableEnterKey(event)">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber6" value="<%=ReticleNumber6%>" maxlength="14" ID="Text7" onKeyPress="return disableEnterKey(event)">
+								</td>																								
+							</tr>
+							
+							<tr>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber7" value="<%=ReticleNumber7%>" maxlength="14" ID="Text10" onKeyPress="return disableEnterKey(event)">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber8" value="<%=ReticleNumber8%>" maxlength="14" ID="Text12" onKeyPress="return disableEnterKey(event)">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber9" value="<%=ReticleNumber9%>" maxlength="14" ID="Text13" onKeyPress="return disableEnterKey(event)">
+								</td>																								
+							</tr>
+							
+							<tr>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber10" value="<%=ReticleNumber10%>" maxlength="14" ID="Text14" onKeyPress="return disableEnterKey(event)">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber11" value="<%=ReticleNumber11%>" maxlength="14" ID="Text15" onKeyPress="return disableEnterKey(event)">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber12" value="<%=ReticleNumber12%>" maxlength="14" ID="Text16" onKeyPress="return disableEnterKey(event)">
+								</td>																								
+							</tr>
+							<%If trim(st_id)="SFABQC" then %>
+							<tr>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber13" value="<%=ReticleNumber13%>" maxlength="14" ID="Text17">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber14" value="<%=ReticleNumber14%>" maxlength="14" ID="Text18">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber15" value="<%=ReticleNumber15%>" maxlength="14" ID="Text19">
+								</td>																								
+							</tr>
+							
+							<tr>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber16" value="<%=ReticleNumber16%>" maxlength="14" ID="Text20">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber17" value="<%=ReticleNumber17%>" maxlength="14" ID="Text21">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber18" value="<%=ReticleNumber18%>" maxlength="14" ID="Text22">
+								</td>																								
+							</tr>
+							<tr>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber19" value="<%=ReticleNumber19%>" maxlength="14" ID="Text9">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber20" value="<%=ReticleNumber20%>" maxlength="14" ID="Text23">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber21" value="<%=ReticleNumber21%>" maxlength="14" ID="Text24">
+								</td>																								
+							</tr>
+							
+							<tr>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber22" value="<%=ReticleNumber22%>" maxlength="14" ID="Text25">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber23" value="<%=ReticleNumber23%>" maxlength="14" ID="Text26">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber24" value="<%=ReticleNumber24%>" maxlength="14" ID="Text27">
+								</td>																								
+							</tr>
+							<tr>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber25" value="<%=ReticleNumber25%>" maxlength="14" ID="Text28">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber26" value="<%=ReticleNumber26%>" maxlength="14" ID="Text29">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber27" value="<%=ReticleNumber27%>" maxlength="14" ID="Text30">
+								</td>																								
+							</tr>
+							
+							<tr>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber28" value="<%=ReticleNumber28%>" maxlength="14" ID="Text31">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber29" value="<%=ReticleNumber29%>" maxlength="14" ID="Text32">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber30" value="<%=ReticleNumber30%>" maxlength="14" ID="Text33">
+								</td>																								
+							</tr>
+							<tr>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber31" value="<%=ReticleNumber31%>" maxlength="14" ID="Text34">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber32" value="<%=ReticleNumber32%>" maxlength="14" ID="Text35">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber33" value="<%=ReticleNumber33%>" maxlength="14" ID="Text36">
+								</td>																								
+							</tr>
+							
+							<tr>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber34" value="<%=ReticleNumber34%>" maxlength="14" ID="Text37">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber35" value="<%=ReticleNumber35%>" maxlength="14" ID="Text38">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber36" value="<%=ReticleNumber36%>" maxlength="14" ID="Text39">
+								</td>																								
+							</tr>
+							<tr>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber37" value="<%=ReticleNumber37%>" maxlength="14" ID="Text40">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber38" value="<%=ReticleNumber38%>" maxlength="14" ID="Text41">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber39" value="<%=ReticleNumber39%>" maxlength="14" ID="Text42">
+								</td>																								
+							</tr>
+							
+							<tr>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber40" value="<%=ReticleNumber40%>" maxlength="14" ID="Text43">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber41" value="<%=ReticleNumber41%>" maxlength="14" ID="Text44">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber42" value="<%=ReticleNumber42%>" maxlength="14" ID="Text45">
+								</td>																								
+							</tr>
+							<tr>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber43" value="<%=ReticleNumber43%>" maxlength="14" ID="Text46">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber44" value="<%=ReticleNumber44%>" maxlength="14" ID="Text47">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber45" value="<%=ReticleNumber45%>" maxlength="14" ID="Text48">
+								</td>																								
+							</tr>
+							
+							<tr>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber46" value="<%=ReticleNumber46%>" maxlength="14" ID="Text49">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber47" value="<%=ReticleNumber47%>" maxlength="14" ID="Text50">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber48" value="<%=ReticleNumber48%>" maxlength="14" ID="Text51">
+								</td>																								
+							</tr>
+							<tr>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber49" value="<%=ReticleNumber49%>" maxlength="14" ID="Text52">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									<input type="text" name="ReticleNumber50" value="<%=ReticleNumber50%>" maxlength="14" ID="Text53">
+								</td>
+								<td width="20">&nbsp;</td>
+								<td>
+									&nbsp;
+								</td>																								
+							</tr>
+							
+
+																																																																												
+							<%end if %>
+							<%
+							''''''''''''''''''''
+							'Response.Write "st_id="&st_id&"<BR>"
+							''''''''''''''''''''
+							 %>								
+																											
+						</table>
+					</td>
+				</tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td colspan="2" align="center" class="ErrorMessage"><%=ErrorMessage%></td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td colspan="2" align="center">
+						<input type="hidden" name="fl_sf_addr1" value="<%=fl_sf_addr1%>" ID="Hidden15">
+						<input type="hidden" name="fl_sf_addr2" value="<%=fl_sf_addr2%>" ID="Hidden16">
+						<input type="hidden" name="fl_sf_city" value="<%=fl_sf_city%>" ID="Hidden17">
+						<input type="hidden" name="fl_sf_state" value="<%=fl_sf_state%>" ID="Hidden18">
+						<input type="hidden" name="PreLocationAlias" value="<%=PreLocationAlias%>" ID="Hidden2">
+						<input type="hidden" name="PageStatus" value="OrderForm2" ID="Hidden1">
+						<input type="submit" name="submit" value="Next >>>" ID="Submit1">	
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<!--tr><td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;<a href="<%=homepage%>".asp">Click here</a> to return to home page</td></tr-->
+</table>
+</form>
+
+	<%
+	Case "OrderForm2"
+	%>
+	<BODY leftMargin="0" TOPMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0" OnLoad=document.OrderForm2.<%=HighlightedField%>.focus()>
+    <!-- #include file="../nav/ifabnavbar.inc" -->	
+	<FORM method="post" name="OrderForm2" ID="OrderForm2">
+	<table cellpadding="0" cellspacing="0" ID="Table7" width="100%" bordercolor="blue" border="0">
+	<tr><td>
+<table cellpadding="0" cellspacing="0" ID="Table12" width="100%" bordercolor="blue" border="0">
+	<tr>
+		<td width="20">&nbsp;</td>
+		<td>
+			<table width="100%" cellpadding="0" cellspacing="0" bordercolor="red" border="0" ID="Table13">	
+			<%
+			
+
+										Set Recordset1 = Server.CreateObject("ADODB.Recordset")
+										Recordset1.ActiveConnection = DATABASE
+										SQL666="SELECT top 1 fclegs.fl_sf_id AS PreviousOrigination FROM fcrefs INNER JOIN fclegs ON fcrefs.rf_fh_id = fclegs.fl_fh_id WHERE rf_ref='"& ReticleNumber1 &"' ORDER BY fl_fh_id DESC"
+										Recordset1.Source = SQL666
+										
+										'Response.write "SQL666="&SQL666&"<BR>"
+										
+										Recordset1.CursorType = 0
+										Recordset1.CursorLocation = 2
+										Recordset1.LockType = 1
+										Recordset1.Open()
+										Recordset1_numRows = 0
+										If Recordset1.EOF then
+
+										End if				
+										If Not Recordset1.EOF then
+											OriginalOrigination=Recordset1("PreviousOrigination")
+										End if
+										Recordset1.Close
+										Set Recordset1=Nothing	
+			                            'Response.Write "Previous Origination="& PreviousOrigination &"<BR>"
+				
+			'''''''''''''''''''''''''''''''''''''''''''
+
+				'Response.Write "<font color='red'>DisplayUserName="&DisplayUserName&"<BR></font>"
+			%>
+				<tr><td align="center" nowrap colspan="2" class="pagetitle">Order Entry</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>				
+				<tr><td align="left" nowrap colspan="2" class="MainPageTextBold">Destination:</td></tr>
+				<tr><td><img src="images/pixel.gif" height="10" width="1"></td></tr>
+				<tr>
+					<td align="left" nowrap colspan="2">
+						<table width="100%" cellpadding="0" cellspacing="0" bordercolor="purple" border="0" ID="Table8">
+							<tr>
+								<td width="20">&nbsp;</td>
+								<td>
+									<select name="Destination" ID="Select2">
+										<option value="">Select a destination</option>
+										<%
+										Set Recordset1 = Server.CreateObject("ADODB.Recordset")
+										Recordset1.ActiveConnection = DATABASE
+										Select Case DisplayUserName
+											Case "Toppan"
+												SQL = "SELECT sb_st_id, st_alias, st_name FROM fcshipbt INNER JOIN fcshipto ON fcshipbt.sb_st_id = fcshipto.st_id WHERE ((sb_bt_id='"&BillToID&"') OR (st_id='RFAB-R')) AND ((st_alias<>'TOPPAN') AND (st_alias<>'TOPPAN123') AND (st_id<>'HFABRET') AND (st_alias<>'CPGP55') AND (st_alias<>'XPHOTR') AND (st_alias<>'XTISHR') AND (st_id<>'DFABR')) order by sb_st_id"
+											Case "Compugraphics"
+												SQL = "SELECT sb_st_id, st_alias, st_name FROM fcshipbt INNER JOIN fcshipto ON fcshipbt.sb_st_id = fcshipto.st_id WHERE (sb_bt_id='38')AND ((st_alias<>'TOPPAN') AND (st_alias<>'TOPPAN123') AND (st_alias<>'CPGP55') AND (st_id<>'HFABRET') AND (st_alias<>'XPHOTR') AND (st_alias<>'XTISHR')) order by sb_st_id"
+											Case "Photronics"
+												SQL = "SELECT sb_st_id, st_alias, st_name FROM fcshipbt INNER JOIN fcshipto ON fcshipbt.sb_st_id = fcshipto.st_id WHERE (((sb_bt_id='"&BillToID&"') OR (st_id='RFAB-R')) AND ((st_alias<>'TOPPAN') AND (st_alias<>'TOPPAN123') AND (st_id<>'HFABRET') AND (st_alias<>'CPGP55') AND (st_alias<>'XPHOTR') AND (st_alias<>'XTISHR') AND (st_id<>'DFABR'))) order by sb_st_id"
+											Case "HFAB"
+												SQL = "SELECT sb_st_id, st_alias, st_name FROM fcshipbt INNER JOIN fcshipto ON fcshipbt.sb_st_id = fcshipto.st_id WHERE (sb_bt_id='"&BillToID&"') AND (st_alias<>'PHOTOP') AND (st_id<>'HFABRET') order by sb_st_id"
+												'SQL = "SELECT sb_st_id, st_alias, st_name FROM fcshipbt INNER JOIN fcshipto ON fcshipbt.sb_st_id = fcshipto.st_id WHERE (sb_bt_id='"&BillToID&"') AND (st_alias<>'CPGP') AND (st_alias<>'CPGP55') AND (st_alias<>'CPGP55') AND (st_alias<>'XPHOTR') AND (st_alias<>'XTISHR') order by sb_st_id"
+											Case "TI-Sherman"
+												SQL = "SELECT sb_st_id, st_alias, st_name FROM fcshipbt INNER JOIN fcshipto ON fcshipbt.sb_st_id = fcshipto.st_id WHERE (sb_bt_id='38') AND (st_id<>'55') AND (st_alias<>'SUREMAN64') AND (st_name<>'TI SHERMAN') order by sb_st_id"										
+											'Case "TI-Wafer", "TI-Reticle"
+											Case else
+												SQL = "SELECT sb_st_id, AllowableShipTo, st_name, st_alias FROM VW_ShipTos WHERE (sb_bt_id='"&DisplayBillToID&"') AND (AllowableShipFrom='"&st_id&"') order by AllowableShipTo"										
+										End Select										
+										Recordset1.Source=SQL
+										'response.write "hello?"
+										Recordset1.CursorType = 0
+										Recordset1.CursorLocation = 2
+										Recordset1.LockType = 1
+										Recordset1.Open()
+										Recordset1_numRows = 0
+										Do While Not Recordset1.EOF 
+											Destination=trim(Recordset1("AllowableShipTo"))
+											TempAliasCode=Recordset1("st_alias")
+											TempDestinationName=Recordset1("st_name")
+		
+											If (trim(WelcomeName)="Toppan" OR trim(WelcomeName)="Photronics") then
+												nnn= "got here!<br>"
+												Select Case Destination
+													Case "DFABR"
+														TempDestinationName="DFAB Reticle (Repell)"
+														'OriginalOrigination=Destination
+													Case "DLINR"
+		
+														If Trim(WelcomeName)="Photronics" then
+															TempDestinationName="DFAB Reticle (New & Re-order)"
+															else
+															TempDestinationName="DFAB Reticle (New)"
+														End if
+												End Select
+											End if
+											%>
+											<option value="<%=Destination%>" <%if trim(Destination)=trim(OriginalOrigination) then response.Write "selected" end if%>><%=TempDestinationName%></option>
+											<%
+										If (Trim(WelcomeName)="Toppan" OR Trim(WelcomeName)="Photronics") And Destination="DLINR" AND xyz="xyz" then
+											%>
+											<option value="DFABR" <%if trim(OriginalOrigination)="DFABR" then response.Write "selected" end if%>>DFAB Reticle (Repell)</option>
+											<%
+										End if												
+										Recordset1.movenext
+										Loop
+										Recordset1.Close
+										Set Recordset1=Nothing	
+
+										%>
+									</select>
+								</td>
+							</tr>
+							<%
+							'Response.write "Recordset1.Source="&Recordset1.Source&"<BR>"
+							'Response.Write "nnn="&nnn&"<BR>"
+							'Response.Write "OriginalOrigination="&OriginalOrigination&"<BR>"
+							%>
+						</table>
+					</td>
+				</tr>			
+				<tr><td>&nbsp;</td></tr>
+				<tr><td align="left" nowrap colspan="2" class="MainPageTextBold">Comments (Optional-Up to 150 Characters)</td></tr>
+				<tr><td><img src="images/pixel.gif" height="10" width="1"></td></tr>
+				<tr>
+					<td align="left" nowrap colspan="2">
+						<table width="100%" cellpadding="0" cellspacing="0" bordercolor="purple" border="0" ID="Table10">
+							<tr>
+								<td width="20">&nbsp;</td>
+								<td>
+									<textarea rows="5" cols="40" maxlength="150" onkeyup="return ismaxlength(this)" ID="comments" NAME="comments"><%=comments%></textarea>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>				
+				<input id="readytime" type="hidden" NAME="readytime" value="<%=now()%>">
+				<tr><td>&nbsp;</td></tr>
+				<tr><td colspan="2" align="center" class="ErrorMessage"><%=ErrorMessage%></td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td colspan="2" align="center">
+						<input type="hidden" name="fl_sf_addr1" value="<%=fl_sf_addr1%>" ID="Hidden19">
+						<input type="hidden" name="fl_sf_addr2" value="<%=fl_sf_addr2%>" ID="Hidden20">
+						<input type="hidden" name="fl_sf_city" value="<%=fl_sf_city%>" ID="Hidden21">
+						<input type="hidden" name="fl_sf_state" value="<%=fl_sf_state%>" ID="Hidden22">					
+						<input type="hidden" name="MaterialType" value="<%=MaterialType%>" ID="Hidden5">
+						<input type="hidden" name="ReticleNumber1" value="<%=ReticleNumber1%>" ID="Hidden6">
+						<input type="hidden" name="ReticleNumber2" value="<%=ReticleNumber2%>" ID="Hidden7">
+						<input type="hidden" name="ReticleNumber3" value="<%=ReticleNumber3%>" ID="Hidden8">
+						<input type="hidden" name="ReticleNumber4" value="<%=ReticleNumber4%>" ID="Hidden9">
+						<input type="hidden" name="ReticleNumber5" value="<%=ReticleNumber5%>" ID="Hidden10">
+						<input type="hidden" name="ReticleNumber6" value="<%=ReticleNumber6%>" ID="Hidden11">
+						<input type="hidden" name="ReticleNumber7" value="<%=ReticleNumber7%>" ID="Hidden46">
+						<input type="hidden" name="ReticleNumber8" value="<%=ReticleNumber8%>" ID="Hidden47">
+						<input type="hidden" name="ReticleNumber9" value="<%=ReticleNumber9%>" ID="Hidden48">
+						<input type="hidden" name="ReticleNumber10" value="<%=ReticleNumber10%>" ID="Hidden49">
+						<input type="hidden" name="ReticleNumber11" value="<%=ReticleNumber11%>" ID="Hidden50">
+						<input type="hidden" name="ReticleNumber12" value="<%=ReticleNumber12%>" ID="Hidden51">
+						<input type="hidden" name="ReticleNumber13" value="<%=ReticleNumber13%>" ID="Hidden52">
+						<input type="hidden" name="ReticleNumber14" value="<%=ReticleNumber14%>" ID="Hidden53">
+						<input type="hidden" name="ReticleNumber15" value="<%=ReticleNumber15%>" ID="Hidden54">
+						<input type="hidden" name="ReticleNumber16" value="<%=ReticleNumber16%>" ID="Hidden55">
+						<input type="hidden" name="ReticleNumber17" value="<%=ReticleNumber17%>" ID="Hidden79">
+						<input type="hidden" name="ReticleNumber18" value="<%=ReticleNumber18%>" ID="Hidden80">												
+						<input type="hidden" name="ReticleNumber19" value="<%=ReticleNumber19%>" ID="Hidden43">
+						<input type="hidden" name="ReticleNumber20" value="<%=ReticleNumber20%>" ID="Hidden56">
+						<input type="hidden" name="ReticleNumber21" value="<%=ReticleNumber21%>" ID="Hidden57">
+						<input type="hidden" name="ReticleNumber22" value="<%=ReticleNumber22%>" ID="Hidden58">
+						<input type="hidden" name="ReticleNumber23" value="<%=ReticleNumber23%>" ID="Hidden59">
+						<input type="hidden" name="ReticleNumber24" value="<%=ReticleNumber24%>" ID="Hidden60">
+						<input type="hidden" name="ReticleNumber25" value="<%=ReticleNumber25%>" ID="Hidden61">
+						<input type="hidden" name="ReticleNumber26" value="<%=ReticleNumber26%>" ID="Hidden62">
+						<input type="hidden" name="ReticleNumber27" value="<%=ReticleNumber27%>" ID="Hidden63">
+						<input type="hidden" name="ReticleNumber28" value="<%=ReticleNumber28%>" ID="Hidden64">
+						<input type="hidden" name="ReticleNumber29" value="<%=ReticleNumber29%>" ID="Hidden65">
+						<input type="hidden" name="ReticleNumber30" value="<%=ReticleNumber30%>" ID="Hidden66">
+						<input type="hidden" name="ReticleNumber31" value="<%=ReticleNumber31%>" ID="Hidden67">
+						<input type="hidden" name="ReticleNumber32" value="<%=ReticleNumber32%>" ID="Hidden68">
+						<input type="hidden" name="ReticleNumber33" value="<%=ReticleNumber33%>" ID="Hidden69">
+						<input type="hidden" name="ReticleNumber34" value="<%=ReticleNumber34%>" ID="Hidden70">
+						<input type="hidden" name="ReticleNumber35" value="<%=ReticleNumber35%>" ID="Hidden71">
+						<input type="hidden" name="ReticleNumber36" value="<%=ReticleNumber36%>" ID="Hidden72">	
+						<input type="hidden" name="ReticleNumber37" value="<%=ReticleNumber37%>" ID="Hidden73">
+						<input type="hidden" name="ReticleNumber38" value="<%=ReticleNumber38%>" ID="Hidden74">
+						<input type="hidden" name="ReticleNumber39" value="<%=ReticleNumber39%>" ID="Hidden75">
+						<input type="hidden" name="ReticleNumber40" value="<%=ReticleNumber40%>" ID="Hidden76">
+						<input type="hidden" name="ReticleNumber41" value="<%=ReticleNumber41%>" ID="Hidden77">
+						<input type="hidden" name="ReticleNumber42" value="<%=ReticleNumber42%>" ID="Hidden78">
+						<input type="hidden" name="ReticleNumber43" value="<%=ReticleNumber43%>" ID="Hidden93">
+						<input type="hidden" name="ReticleNumber44" value="<%=ReticleNumber44%>" ID="Hidden94">
+						<input type="hidden" name="ReticleNumber45" value="<%=ReticleNumber45%>" ID="Hidden95">
+						<input type="hidden" name="ReticleNumber46" value="<%=ReticleNumber46%>" ID="Hidden96">
+						<input type="hidden" name="ReticleNumber47" value="<%=ReticleNumber47%>" ID="Hidden97">
+						<input type="hidden" name="ReticleNumber48" value="<%=ReticleNumber48%>" ID="Hidden98">
+						<input type="hidden" name="ReticleNumber49" value="<%=ReticleNumber49%>" ID="Hidden99">
+						<input type="hidden" name="ReticleNumber50" value="<%=ReticleNumber50%>" ID="Hidden100">
+						<input type="hidden" name="BoxID" value="<%=BoxID%>" ID="Hidden101">
+												
+						<input type="hidden" name="UserID" value="<%=UserID%>" ID="Hidden12">
+						<input type="hidden" name="User3" value="<%=User3%>" ID="Hidden23">
+						<input type="hidden" name="st_id" value="<%=st_id%>" ID="Hidden13">
+						<input type="hidden" name="BillToID" value="<%=BillToID%>" ID="Hidden14">
+						
+						<input type="hidden" name="PreLocationAlias" value="<%=PreLocationAlias%>" ID="Hidden4">
+						<input type="hidden" name="PageStatus" value="OrderForm3" ID="Hidden24">
+						<input type="submit" name="submit" value="Next>>>" ID="Submit2">	
+					</td>
+				</tr>	
+	
+	</table>
+	</td></tr></table>
+	</form>
+	<%
+	Case "OrderForm3"
+	%>
+	<BODY leftMargin="0" TOPMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0" OnLoad=document.OrderForm3.<%=HighlightedField%>.focus()>
+	<!-- #include file="../nav/ifabnavbar.inc" -->
+	<FORM method="post" name="OrderForm3" ID="FORM3">
+	<table cellpadding="0" cellspacing="0" ID="Table15" width="100%" bordercolor="blue" border="0">
+	<tr><td>
+    <table cellpadding="0" cellspacing="0" ID="Table16" width="100%" bordercolor="blue" border="0">
+	<tr>
+		<td width="20">&nbsp;</td>
+		<td>
+			<table width="100%" cellpadding="0" cellspacing="0" bordercolor="red" border="0" ID="Table17">	
+				
+				<tr><td align="center" nowrap colspan="2" class="pagetitle">Shipment Method</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td colspan="2">&nbsp;</td></tr>				
+				<tr><td align="left" nowrap colspan="2" class="MainPageTextBold">Shipment Method</td></tr>
+				<tr><td><img src="images/pixel.gif" height="10" width="1"></td></tr>				
+				<tr><td><input type="radio" name="ShipMethod" value="fleet" <%if ShipMethod="fleet" then response.Write "checked" end if%> ID="Radio1">Fleet Services - Delivery by LogistiCorp <font color='red'><b>&nbsp;&nbsp;(RECOMMENDED)</b></font><br></td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td align="left" nowrap colspan="2">
+						<table width="100%" cellpadding="0" cellspacing="0" bordercolor="purple" border="0" ID="Table9">
+							<tr>
+								<td width="20">&nbsp;</td>
+								<td>
+									
+										<%
+										'Response.Write "st_id="&st_id&"<BR>"
+										'Response.Write "destination="&destination&"<BR>"
+										
+										Set Recordset1 = Server.CreateObject("ADODB.Recordset")
+										Recordset1.ActiveConnection = DATABASE
+										SQL = "SELECT Priority, PriorityDescription, PriorityMinutes FROM VW_DefaultPriorities WHERE (Priority_BT_ID = '"&BillToID&"')"
+										SQL = SQL & " order by Priority"
+										Recordset1.Source=SQL
+										'Response.write "Recordset1.Source="&Recordset1.Source&"<BR>"
+										Recordset1.CursorType = 0
+										Recordset1.CursorLocation = 2
+										Recordset1.LockType = 1
+										Recordset1.Open()
+										Recordset1_numRows = 0
+										Do While Not Recordset1.EOF 
+										    PriorityAbbreviation=Recordset1("Priority")
+											PriorityDescription=Recordset1("PriorityDescription")
+											PriorityMinutes=Recordset1("PriorityMinutes")
+											If (trim(st_id)="RFAB-W" or trim(destination)="RFAB-W") AND trim(PriorityAbbreviation)="XP" then
+											    PriorityMinutes=75
+											End if											
+											ExpectedArrivalTime=DateAdd("n",PriorityMinutes,Now())
+
+											%>
+											<input type="radio" name="Priority" value="<%=PriorityAbbreviation%>" <%If PriorityAbbreviation="WF" then response.write "checked" end if%>><%=PriorityDescription%><%If PriorityAbbreviation="WF" then response.write "<font color='red'><b>&nbsp;&nbsp;(RECOMMENDED)</b></font>" end if%><%If PriorityAbbreviation="XP" then response.write "<font color='red'><b>&nbsp;&nbsp;(Only use this method if a PO AND shipment requires expedited delivery)</b></font>" end if%>
+											<%
+											If (trim(lcase(WelcomeName))<>"compugraphics" and trim(lcase(WelcomeName))<>"toppan") then
+											 %>
+											<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Using this method, your delivery should arrive by <b><%=ExpectedArrivalTime%></b>
+											<%
+											End if
+											 %>
+											<br /><br />
+											<%
+										Recordset1.movenext
+										Loop
+										Recordset1.Close
+										Set Recordset1=Nothing	
+										%>
+								</td>
+							</tr>
+							<%
+							'response.write "WelcomeName="& WelcomeName &"<BR>"
+							
+							
+							
+							'Response.Write "welcomename="&welcomename&"***<BR>"
+							'Response.Write "destination="&destination&"***<BR>"
+							
+								If (trim(lcase(WelcomeName))="compugraphics" or trim(lcase(WelcomeName))="toppan") and (lcase(destination)<>"hfabret") and (lcase(destination)<>"tishermanret") then%>	
+								<tr><td colspan="2"><hr></td></tr>
+								<tr><td colspan="2">&nbsp;</td></tr>
+								<tr><td width="20">&nbsp;</td><td><b>Also Available</b></td></tr>								
+								<tr>
+									<td width="20">&nbsp;</td>
+									<td>									
+										<input type="radio" name="ShipMethod" value="air" <%if ShipMethod="air" then response.Write "checked" end if%> ID="Radio2">Southwest Airlines<br>
+										<!--
+										<input type="radio" name="ShipMethod" value="bus" <%if ShipMethod="bus" then response.Write "checked" end if%> ID="Select5">Greyhound Bus - ETA in Dallas:  <input type="text" name="ETA" value="<%=ETA%>" maxlength="25" size="25" ID="Text8">&nbsp;<a href="javascript:NewCal('ETA','mmddyyyy',true,12,'dropdown',true)"><img src="images/cal.gif" width="16" height="16" border="0" alt="Pick a date"></a><br>
+										-->
+										<%if billtoid<>"x55x" then%>
+										<input type="radio" name="ShipMethod" value="drive" <%if ShipMethod="drive" then response.Write "checked" end if%> ID="Radio3">Drive Job (Hot Shot)<br>
+										<%end if%>
+									</td>
+								</tr>
+								<tr><td colspan="2">&nbsp;</td></tr>
+								<tr><td width="20">&nbsp;</td><td>Responsible Party: &nbsp;&nbsp;&nbsp;
+									<select name="ResponsibleParty" ID="Select6">
+										<option value="<%=DisplayUserName%>"><%=DisplayUserName%></option>
+										<option value="TI">TI</option>
+									</select>
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									Authorized by: &nbsp;&nbsp;&nbsp;
+									<input type="text" name="AuthorizedBy" maxlength="30" width="30" ID="Text9">
+									
+								</td></tr>
+								<!--tr><td colspan="2"><font color="red">NOTE: (REVISED 8/18/2010)  IF YOU NEED TO SEND YOUR DELIVERY VIA QUICK INSTEAD OF THE LOGISTICORP SCHEDULED PICK UPS:
+								<br /><br />We are currently experiencing difficulties with data transfer with QUICK International.<br /><br />If you need to send a reticle via QUICK, it will be necessary for you to ****REQUEST A QUICK PICK UP VIA QUICK ONLINE*** or CALL THEM DIRECTLY.<br /><BR />QUICK's phone number is: 800-473-4673.<br /><br />
+								You will need to tell them to deliver the package to "The Blue Box Table at the South Building Dock, 13536 North Central, Dallas, TX."<BR /><BR />Please continue to attach the LogistiCorp paperwork to the outside of the package.<BR /><br />If you have any questions, contact Mark Maggiore @ 214-956-0400 ext. 212.</font></td></tr-->
+								
+							<%End if%>	
+							<%
+							'response.Write "DisplayUserName="&DisplayUserName&"<BR>"
+							'response.Write "Origination="&Origination&"<BR>"
+							'response.Write "Destination="&Destination&"<BR>"
+							If lcase(DisplayUserName)="ti-sherman" or (lcase(DisplayUserName)="photronics" AND Destination="TISHERMANRET" ) or (lcase(DisplayUserName)="toppan" AND Destination="TISHERMANRET" ) or (lcase(DisplayUserName)="compugraphics" AND Destination="TISHERMANRET" ) then%>	
+								<tr><td colspan="2"><hr></td></tr>
+								<tr><td width="20">&nbsp;</td><td><b>Also Available</b></td></tr>
+								<tr><td colspan="2">&nbsp;</td></tr>
+								<tr>
+									<td width="20">&nbsp;</td>
+									<td>									
+										<input type="radio" name="ShipMethod" value="NTCS" <%if ShipMethod="NTCS" then response.Write "checked" end if%> ID="Radio4">North Texas Courier Service<br>
+									</td>
+								</tr>
+								<tr><td colspan="2">&nbsp;</td></tr>
+								<tr><td width="20">&nbsp;</td><td>Responsible Party: &nbsp;&nbsp;&nbsp;
+									<select name="ResponsibleParty" ID="Select7">
+										<option value="<%=DisplayUserName%>"><%=DisplayUserName%></option>
+										<option value="TI">TI-Dallas</option>
+									</select>
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									Authorized by: &nbsp;&nbsp;&nbsp;
+									<input type="text" name="AuthorizedBy" maxlength="30" width="30" ID="Text11">
+								</td></tr>
+							<%End if					
+							
+							
+							
+							
+							
+							
+							
+							'Response.Write "PRIORITY="&SQL&"<BR>"
+							%>							
+						</table>
+					</td>
+				</tr>			
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>				
+				<tr><td colspan="2" align="center" class="ErrorMessage"><%=ErrorMessage%></td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td colspan="2" align="center">
+						<input type="hidden" name="fl_sf_addr1" value="<%=fl_sf_addr1%>" ID="Hidden25">
+						<input type="hidden" name="fl_sf_addr2" value="<%=fl_sf_addr2%>" ID="Hidden26">
+						<input type="hidden" name="fl_sf_city" value="<%=fl_sf_city%>" ID="Hidden27">
+						<input type="hidden" name="fl_sf_state" value="<%=fl_sf_state%>" ID="Hidden28">					
+						<input type="hidden" name="MaterialType" value="<%=MaterialType%>" ID="Hidden29">
+						<input type="hidden" name="ReticleNumber1" value="<%=ReticleNumber1%>" ID="Hidden30">
+						<input type="hidden" name="ReticleNumber2" value="<%=ReticleNumber2%>" ID="Hidden31">
+						<input type="hidden" name="ReticleNumber3" value="<%=ReticleNumber3%>" ID="Hidden32">
+						<input type="hidden" name="ReticleNumber4" value="<%=ReticleNumber4%>" ID="Hidden33">
+						<input type="hidden" name="ReticleNumber5" value="<%=ReticleNumber5%>" ID="Hidden34">
+						<input type="hidden" name="ReticleNumber6" value="<%=ReticleNumber6%>" ID="Hidden35">
+						<input type="hidden" name="ReticleNumber7" value="<%=ReticleNumber7%>" ID="Hidden81">
+						<input type="hidden" name="ReticleNumber8" value="<%=ReticleNumber8%>" ID="Hidden82">
+						<input type="hidden" name="ReticleNumber9" value="<%=ReticleNumber9%>" ID="Hidden83">
+						<input type="hidden" name="ReticleNumber10" value="<%=ReticleNumber10%>" ID="Hidden84">
+						<input type="hidden" name="ReticleNumber11" value="<%=ReticleNumber11%>" ID="Hidden85">
+						<input type="hidden" name="ReticleNumber12" value="<%=ReticleNumber12%>" ID="Hidden86">
+						<input type="hidden" name="ReticleNumber13" value="<%=ReticleNumber13%>" ID="Hidden87">
+						<input type="hidden" name="ReticleNumber14" value="<%=ReticleNumber14%>" ID="Hidden88">
+						<input type="hidden" name="ReticleNumber15" value="<%=ReticleNumber15%>" ID="Hidden89">
+						<input type="hidden" name="ReticleNumber16" value="<%=ReticleNumber16%>" ID="Hidden90">
+						<input type="hidden" name="ReticleNumber17" value="<%=ReticleNumber17%>" ID="Hidden91">
+						<input type="hidden" name="ReticleNumber18" value="<%=ReticleNumber18%>" ID="Hidden92">												
+						<input type="hidden" name="ReticleNumber19" value="<%=ReticleNumber19%>" ID="Hidden102">
+						<input type="hidden" name="ReticleNumber20" value="<%=ReticleNumber20%>" ID="Hidden103">
+						<input type="hidden" name="ReticleNumber21" value="<%=ReticleNumber21%>" ID="Hidden104">
+						<input type="hidden" name="ReticleNumber22" value="<%=ReticleNumber22%>" ID="Hidden105">
+						<input type="hidden" name="ReticleNumber23" value="<%=ReticleNumber23%>" ID="Hidden106">
+						<input type="hidden" name="ReticleNumber24" value="<%=ReticleNumber24%>" ID="Hidden107">
+						<input type="hidden" name="ReticleNumber25" value="<%=ReticleNumber25%>" ID="Hidden108">
+						<input type="hidden" name="ReticleNumber26" value="<%=ReticleNumber26%>" ID="Hidden109">
+						<input type="hidden" name="ReticleNumber27" value="<%=ReticleNumber27%>" ID="Hidden110">
+						<input type="hidden" name="ReticleNumber28" value="<%=ReticleNumber28%>" ID="Hidden111">
+						<input type="hidden" name="ReticleNumber29" value="<%=ReticleNumber29%>" ID="Hidden112">
+						<input type="hidden" name="ReticleNumber30" value="<%=ReticleNumber30%>" ID="Hidden113">
+						<input type="hidden" name="ReticleNumber31" value="<%=ReticleNumber31%>" ID="Hidden114">
+						<input type="hidden" name="ReticleNumber32" value="<%=ReticleNumber32%>" ID="Hidden115">
+						<input type="hidden" name="ReticleNumber33" value="<%=ReticleNumber33%>" ID="Hidden116">
+						<input type="hidden" name="ReticleNumber34" value="<%=ReticleNumber34%>" ID="Hidden117">
+						<input type="hidden" name="ReticleNumber35" value="<%=ReticleNumber35%>" ID="Hidden118">
+						<input type="hidden" name="ReticleNumber36" value="<%=ReticleNumber36%>" ID="Hidden119">	
+						<input type="hidden" name="ReticleNumber37" value="<%=ReticleNumber37%>" ID="Hidden120">
+						<input type="hidden" name="ReticleNumber38" value="<%=ReticleNumber38%>" ID="Hidden121">
+						<input type="hidden" name="ReticleNumber39" value="<%=ReticleNumber39%>" ID="Hidden122">
+						<input type="hidden" name="ReticleNumber40" value="<%=ReticleNumber40%>" ID="Hidden123">
+						<input type="hidden" name="ReticleNumber41" value="<%=ReticleNumber41%>" ID="Hidden124">
+						<input type="hidden" name="ReticleNumber42" value="<%=ReticleNumber42%>" ID="Hidden125">
+						<input type="hidden" name="ReticleNumber43" value="<%=ReticleNumber43%>" ID="Hidden126">
+						<input type="hidden" name="ReticleNumber44" value="<%=ReticleNumber44%>" ID="Hidden127">
+						<input type="hidden" name="ReticleNumber45" value="<%=ReticleNumber45%>" ID="Hidden128">
+						<input type="hidden" name="ReticleNumber46" value="<%=ReticleNumber46%>" ID="Hidden129">
+						<input type="hidden" name="ReticleNumber47" value="<%=ReticleNumber47%>" ID="Hidden130">
+						<input type="hidden" name="ReticleNumber48" value="<%=ReticleNumber48%>" ID="Hidden131">
+						<input type="hidden" name="ReticleNumber49" value="<%=ReticleNumber49%>" ID="Hidden132">
+						<input type="hidden" name="ReticleNumber50" value="<%=ReticleNumber50%>" ID="Hidden133">
+						<input type="hidden" name="BoxID" value="<%=BoxID%>" ID="Hidden134">						
+						<input type="hidden" name="UserID" value="<%=UserID%>" ID="Hidden36">
+						<input type="hidden" name="User3" value="<%=User3%>" ID="Hidden37">
+						<input type="hidden" name="st_id" value="<%=st_id%>" ID="Hidden38">
+						<input type="hidden" name="BillToID" value="<%=BillToID%>" ID="Hidden39">
+						
+						<input type="hidden" name="readytime" value="<%=readytime%>" ID="Hidden41">
+						<input type="hidden" name="comments" value="<%=comments%>" ID="Hidden42">
+						<input type="hidden" name="destination" value="<%=destination%>" ID="Hidden44">
+						
+						<input type="hidden" name="PreLocationAlias" value="<%=PreLocationAlias%>" ID="Hidden40">
+						<input type="hidden" name="PageStatus" value="OrderCompleted" ID="Hidden45">
+						<input type="submit" name="submit" value="Submit Order" ID="Submit3">	
+					</td>
+				</tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				</form>	
+	
+	</table>
+	</td></tr></table>
+	
+				
+		
+	<%
+	Case else
+	%>
+
+	
+	
+	
+	<BODY OnLoad="document.form666.preLocationAlias.focus()" leftMargin=0 TOPMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0">
+	<!-- #include file="../nav/ifabnavbar.inc" -->
+	<!--THIS VERIFIES/LOADS THE LOCATION COOKIE...Mark Maggiore-->
+	<%
+	'LocationAlias=Request.Cookies("Location_Logisticorp")("LocationAlias")	
+	'If locationalias="" then
+	'LocationAlias=Request.Cookies("Location_Logisticorp")("LocationAlias")
+		'Response.Write "LocationAlias="&LocationAlias&"<BR>"
+		'if LocationAlias="" then
+			'Response.Write "here's some code!<br>"
+			%>
+			<table align="center" width="600" ID="Table5">
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td class="generalcontent">If you wish to <b>TRACK AN ORDER</b> or <b>VIEW REPORTS</b>, you can do so by choosing your
+					option from the navigation bar above.<br><br>
+					If however, you are trying to use this computer to place an order or close an order (and
+					this computer has been approved for such use by your IFAB/Transport person), then you 
+					will need to follow the instructions below in order to enable this computer.</td>
+				</tr>
+				<tr><td>&nbsp;</td></tr>
+			</table>			
+			<form method="post" ID="form666" name="form666">
+			<table width="500" border="0" align="center" ID="Table6">
+				<tr>
+					<td>
+						<table width="500" border="0" align="center" ID="Table18">
+							<tr>				
+								<td class="generalcontent">
+									SCAN in the location barcode of this terminal (As provided by Mark Maggiore). 
+									If you are unable to SCAN in the terminal location, you must contact 
+									Mark Maggiore at 214-956-0400 xt. 212 
+									for assistance.
+								</td>
+							</tr>
+							<tr><td>&nbsp;</td></tr>
+							<tr>
+								<td align="center" class="generalcontent">
+									<input type="password" name="preLocationAlias" ID="Password1">
+								</td>
+							</tr>
+							<tr><td align="center" class="generalcontent"><input type="submit" value="submit" name="submit" ID="Submit7"></td></tr>
+							<%
+							If ErrorMessage>"" then
+								%>
+								<tr><td>&nbsp;</td></tr>
+								<tr><td><font color="red"><b><%=ErrorMessage%></b></font></td></tr>
+								<tr><td>&nbsp;</td></tr>
+								<%
+							End if
+							%>
+						</table>
+					</td>
+				</tr>
+			</table>
+			</form>
+			<%
+		'End if
+	'End if	
+	End Select
+		'response.write "Welcomename="&Welcomename&"*******<BR>"
+		'response.write "lwelcomename="&lwelcomename&"YYYYYY<BR>"	
+		If trim(lWelcomename)="" then
+		    'response.write "I GOT HERE!!!!<BR>"
+		    lWelcomename=trim(lcase(Welcomename))
+	    End if
+	    session("lwelcomename")=lwelcomename
+	    'response.write "lwelcomename="&lwelcomename&"XXXXXX<BR>"	
+	    'Response.Write "Please ignore="&DisplayCookie&"<BR>"
+	%>
+		
+</body>
+</html>
